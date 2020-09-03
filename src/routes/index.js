@@ -1,0 +1,23 @@
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import RegisFormAllCourses from "../components/RegisFormAllCourses";
+
+// import Register from "../components";
+
+//import RegisterByCourse from "../components/RegisFormByCourse";
+//import Success from "../components/success";
+
+export default class Routing extends React.Component {
+    render() {
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/courses" component={RegisFormAllCourses} />
+
+
+                </Switch>
+            </BrowserRouter>
+        );
+    }
+}
