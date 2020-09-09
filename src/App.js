@@ -1,9 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import logo from './logo.svg';
 import './App.css';
 // import './components/regisFormAllCourses';
 import RegisFormAllCourses from './components/RegisFormAllCourses';
 // import Routing from './routes/index';
+// import Success from './components/Success';
 
 function App() {
   return (
@@ -11,8 +13,11 @@ function App() {
     <div className="App">
       {/* <Routing /> */}
       <RegisFormAllCourses />
+      {/* <Success/> */}
     </div>
   );
 }
+
+
 
 export default App;

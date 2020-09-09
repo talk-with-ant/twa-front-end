@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import RegisFormAllCourses from "../components/RegisFormAllCourses";
-
+// import Success from "../components/Success";
 // import Register from "../components";
 
 //import RegisterByCourse from "../components/RegisFormByCourse";
@@ -14,7 +14,7 @@ export default class Routing extends React.Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/courses" component={RegisFormAllCourses} />
-
+                  
 
                 </Switch>
             </BrowserRouter>

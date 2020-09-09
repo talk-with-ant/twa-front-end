@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import {
     withRouter,
     BrowserRouter as Router,
@@ -23,8 +24,10 @@ export default class RegisFormAllCourses extends React.Component {
             courses: [],
             displayName: '',
             userId: '',
-            pictureUrl: '',
-            statusMessage: ''
+            name: '',
+            tel: '',
+            email: '',
+            timestamp: '',
         };
         this.initialize = this.initialize.bind(this);
         this.closeApp = this.closeApp.bind(this);
@@ -57,7 +60,7 @@ export default class RegisFormAllCourses extends React.Component {
     componentDidMount() {
         window.addEventListener('load', this.initialize);
         axios
-            .get("https://asia-northeast1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
+            .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
             .then((res) => {
                 this.setState({ courses: res.data });
             })
@@ -68,20 +71,24 @@ export default class RegisFormAllCourses extends React.Component {
     }
 
     handleSumbit(event) {
+        // if (!event.target.checkValidity()) {
+        //     // form is invalid! so we do nothing
+        //     return;
+        //   }
+          // form is valid! We can parse and submit data
         event.preventDefault();
         const data = new FormData(event.target)
-        const userId = this.state.userId;
-
-        fetch('https://asia-northeast1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users', {
+        const userId = this.state.userId
+        const timestamp = Date.now();
+        fetch('https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users', {
             method: 'POST',
             body: {
+                timestamp,
                 userId,
                 data
-            },
+            },   
         });
 
-        // event.preventDefault()
-        // this.props.history.push('/success'); // <--- The page you want to redirect your user to.
 
     }
 
@@ -93,51 +100,55 @@ export default class RegisFormAllCourses extends React.Component {
                 <div className="row mt-4">
                     <div className="col-12 col-md-6 offset-md-3">
                         <h2 className="my-4 text-center">Register</h2>
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit} >
 
                             <div className="form-group">
-                                <label >First name</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="firstname"
-                                    name="firstname"
-                                    placeholder="Enter first name"
-                                />
+                                <label >Name</label>
+                                    <input
+                                        name="name"
+                                        type="text"
+                                        className="form-control"
+                                        id="name"                            
+                                        placeholder="Enter name"
+                                        required
+                                    />
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label >Last name</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="lastname"
-                                    name="lastname"
-                                    placeholder="Enter last name"
-                                />
-                            </div>
+                                    <input
+                                        name="lastname"
+                                        type="text"
+                                        className="form-control"
+                                        id="lastname"                                    
+                                        placeholder="Enter last name"
+                                        required
+                                    />
+                            </div> */}
                             <div className="form-group">
                                 <label >Email address</label>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    id="email"
-                                    name="email"
-                                    placeholder="Enter email"
-                                />
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        className="form-control"
+                                        id="email"                                    
+                                        placeholder="Enter email"
+                                        required
+                                    />
                             </div>
                             <div className="form-group">
                                 <label>Phone</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="phone"
-                                    name="phone"
-                                    placeholder="Phone"
-                                />
+                                    <input
+                                        name="tel"
+                                        type="number"
+                                        className="form-control"
+                                        id="tel"                                        
+                                        placeholder="0123456789"
+                                        required
+                                    />
                             </div>
                             <div className="form-group">
                                 <label for="exampleInputCourse1">Course</label>
-                                <select>
+                                <select required>
                                     {courses.map((course) => (
                                         <option key={course.id}>{course.data.name}</option>
                                     ))}
@@ -152,29 +163,30 @@ export default class RegisFormAllCourses extends React.Component {
                                     className="form-check-input"
                                     id="check"
                                     name="check"
-
+                                    required
                                 />
                                 <label className="form-check-label">
                                     Accept term and conditions
               </label>
                             </div>
+                            
+                           
+                                <div>
+                                    {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
+                                    <button  className="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+                            
                             <div>
-
-                                {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
-
-                                <button type="submit" className="btn btn-primary">
-                                    Submit
-                                     </button>
-
-
-                            </div>
-                            <div>
-                                <button type="button" className="btn btn-warning">
+                                <button className="btn btn-warning">
                                     Cancel
             </button>
                             </div>
 
                         </form>
+
+                        
                     </div>
                 </div>
             </div>
@@ -183,3 +195,4 @@ export default class RegisFormAllCourses extends React.Component {
         )
     }
 }
+
