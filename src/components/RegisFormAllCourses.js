@@ -15,14 +15,13 @@ import Routing from '../routes';
 
 const liff = window.liff;
 
-export default class RegisFormAllCourses extends React.Component {
+class RegisFormAllCourses extends React.Component {
 
     constructor() {
         super();
         this.handleSubmit = this.handleSumbit.bind(this);
         this.state = {
             courses: [],
-            displayName: '',
             userId: '',
             name: '',
             tel: '',
@@ -75,19 +74,31 @@ export default class RegisFormAllCourses extends React.Component {
         //     // form is invalid! so we do nothing
         //     return;
         //   }
-          // form is valid! We can parse and submit data
+        // form is valid! We can parse and submit data
         event.preventDefault();
         const data = new FormData(event.target)
-        const userId = this.state.userId
-        const timestamp = Date.now();
+        // const userId = this.state.userId
+        const timestamp = new Date();
+
+
+        console.log("userId -> ", this.state.userId);
+        console.log("name -> ", this.state.name);
+        console.log("tel -> ", this.state.tel);
+        console.log("email -> ", this.state.email);
+        console.log("timestamp -> ", timestamp);
+
         fetch('https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users', {
             method: 'POST',
             body: {
-                timestamp,
-                userId,
-                data
-            },   
+                courseName: this.state.courseName,
+                userId: this.setState({ userId: '123456789' }),
+                name: this.state.name,
+                tel: this.state.tel,
+                email: this.state.email,
+                timestamp: timestamp
+            },
         });
+        this.props.history.push("/success")
 
 
     }
@@ -104,14 +115,15 @@ export default class RegisFormAllCourses extends React.Component {
 
                             <div className="form-group">
                                 <label >Name</label>
-                                    <input
-                                        name="name"
-                                        type="text"
-                                        className="form-control"
-                                        id="name"                            
-                                        placeholder="Enter name"
-                                        required
-                                    />
+                                <input
+                                    name="name"
+                                    type="text"
+                                    className="form-control"
+                                    id="name"
+                                    placeholder="Enter name"
+                                    required
+                                    onChange={(e) => this.setState({ name: e.target.value })}
+                                />
                             </div>
                             {/* <div className="form-group">
                                 <label >Last name</label>
@@ -126,29 +138,31 @@ export default class RegisFormAllCourses extends React.Component {
                             </div> */}
                             <div className="form-group">
                                 <label >Email address</label>
-                                    <input
-                                        name="email"
-                                        type="email"
-                                        className="form-control"
-                                        id="email"                                    
-                                        placeholder="Enter email"
-                                        required
-                                    />
+                                <input
+                                    name="email"
+                                    type="email"
+                                    className="form-control"
+                                    id="email"
+                                    placeholder="Enter email"
+                                    required
+                                    onChange={(e) => this.setState({ email: e.target.value })}
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Phone</label>
-                                    <input
-                                        name="tel"
-                                        type="number"
-                                        className="form-control"
-                                        id="tel"                                        
-                                        placeholder="0123456789"
-                                        required
-                                    />
+                                <input
+                                    name="tel"
+                                    type="number"
+                                    className="form-control"
+                                    id="tel"
+                                    placeholder="0123456789"
+                                    required
+                                    onChange={(e) => this.setState({ tel: e.target.value })}
+                                />
                             </div>
                             <div className="form-group">
-                                <label for="exampleInputCourse1">Course</label>
-                                <select required>
+                                <label >Course</label>
+                                <select value="courseName" required onChange={(e) => this.setState({ courseName: e.target.value })}>
                                     {courses.map((course) => (
                                         <option key={course.id}>{course.data.name}</option>
                                     ))}
@@ -169,15 +183,15 @@ export default class RegisFormAllCourses extends React.Component {
                                     Accept term and conditions
               </label>
                             </div>
-                            
-                           
-                                <div>
-                                    {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
-                                    <button  className="btn btn-primary">
-                                        Submit
+
+
+                            <div>
+                                {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
+                                <button className="btn btn-primary">
+                                    Submit
                                     </button>
-                                </div>
-                            
+                            </div>
+
                             <div>
                                 <button className="btn btn-warning">
                                     Cancel
@@ -186,7 +200,7 @@ export default class RegisFormAllCourses extends React.Component {
 
                         </form>
 
-                        
+
                     </div>
                 </div>
             </div>
@@ -196,3 +210,4 @@ export default class RegisFormAllCourses extends React.Component {
     }
 }
 
+export default withRouter(RegisFormAllCourses)

@@ -4,15 +4,15 @@ import logo from './logo.svg';
 import './App.css';
 // import './components/regisFormAllCourses';
 import RegisFormAllCourses from './components/RegisFormAllCourses';
-// import Routing from './routes/index';
+import Routing from './routes/index';
 // import Success from './components/Success';
 
 function App() {
   return (
 
     <div className="App">
-      {/* <Routing /> */}
-      <RegisFormAllCourses />
+      <Routing />
+      {/* <RegisFormAllCourses /> */}
       {/* <Success/> */}
     </div>
   );
