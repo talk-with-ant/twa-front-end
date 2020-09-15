@@ -1,7 +1,22 @@
 import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// import RegisFormAllCourses from './RegisFormAllCourses'
 // import RegisFormAllCourses from '/RegisFormAllCourses';
 
+const liff = window.liff;
 class SuccessPage extends React.Component {
+
+    closeApp(event) {
+        event.preventDefault();
+        liff.sendMessages([{
+            type: 'text',
+            text: "Register Success"
+        }]).then(() => {
+            liff.closeWindow();
+        });
+    }
+
 
     // handleSumbit(event){
 
@@ -11,7 +26,14 @@ class SuccessPage extends React.Component {
 
     render() {
         return (
-            <h1>Hello</h1>
+            <div>
+                <h1>Register Success !
+            </h1>
+                <button onClick={this.closeApp} className="btn btn-warning">
+                    Close
+            </button>
+            </div>
+
 
 
         )

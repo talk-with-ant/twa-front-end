@@ -50,7 +50,7 @@ class RegisFormAllCourses extends React.Component {
         event.preventDefault();
         liff.sendMessages([{
             type: 'text',
-            text: "Bye Bye!!!"
+            text: "Cancel Register"
         }]).then(() => {
             liff.closeWindow();
         });
@@ -80,7 +80,7 @@ class RegisFormAllCourses extends React.Component {
         // const userId = this.state.userId
         const timestamp = new Date();
 
-
+        // this.props.name = this.state.name;
         console.log("userId -> ", this.state.userId);
         console.log("name -> ", this.state.name);
         console.log("tel -> ", this.state.tel);
@@ -98,6 +98,8 @@ class RegisFormAllCourses extends React.Component {
                 timestamp: timestamp
             },
         });
+
+
         this.props.history.push("/success")
 
 
@@ -158,6 +160,7 @@ class RegisFormAllCourses extends React.Component {
                                     placeholder="0123456789"
                                     required
                                     onChange={(e) => this.setState({ tel: e.target.value })}
+                                    parseInt
                                 />
                             </div>
                             <div className="form-group">
@@ -193,7 +196,7 @@ class RegisFormAllCourses extends React.Component {
                             </div>
 
                             <div>
-                                <button className="btn btn-warning">
+                                <button onClick={this.closeApp} className="btn btn-warning">
                                     Cancel
             </button>
                             </div>
