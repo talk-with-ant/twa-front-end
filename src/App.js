@@ -1,23 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom'
-import logo from './logo.svg';
-import './App.css';
-// import './components/regisFormAllCourses';
-import RegisFormAllCourses from './components/RegisFormAllCourses';
+import React, { useEffect, useState } from 'react';
+import { useLiff } from 'react-liff';
 import Routing from './routes/index';
+import RegisFormAllCourses from './components/RegisFormAllCourses';
+import './App.css';
 // import Success from './components/Success';
 
-function App() {
-  return (
+const App = () => {
+  const [displayName, setDisplayName] = useState('');
+  const { error, liff, isLoggedIn, ready } = useLiff();
 
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    (async () => {
+      const profile = await liff.getProfile();
+      setDisplayName(profile.displayName);
+    })();
+  }, [liff, isLoggedIn]);
+
+  const showDisplayName = () => {
+    if (error) return <p>Something is wrong.</p>;
+    if (!ready) return <p>Loading...</p>;
+
+    if (!isLoggedIn) {
+      return <button className="App-button" onClick={liff.login}>Login</button>;
+    }
+    return (
+      <>
+        <p>Welcome to the react-liff demo app, {displayName}!</p>
+        <button className="App-button" onClick={liff.logout}>Logout</button>
+      </>
+    );
+  }
+
+  return (
     <div className="App">
+      {/* <header className="App-header">{showDisplayName()}</header> */}
       <Routing />
       {/* <RegisFormAllCourses /> */}
       {/* <Success/> */}
     </div>
   );
 }
-
-
 
 export default App;
