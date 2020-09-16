@@ -35,6 +35,7 @@ const App = () => {
 
   return (
     <div className="App">
+      NAV Bar?
       {/* <header className="App-header">{showDisplayName()}</header> */}
       <Routing />
       {/* <RegisFormAllCourses /> */}

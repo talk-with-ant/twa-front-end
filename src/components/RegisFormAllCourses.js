@@ -17,6 +17,8 @@ const liff = window.liff;
 
 class RegisFormAllCourses extends React.Component {
 
+
+    
     constructor() {
         super();
         this.handleSubmit = this.handleSumbit.bind(this);
@@ -26,10 +28,39 @@ class RegisFormAllCourses extends React.Component {
             name: '',
             tel: '',
             email: '',
-            timestamp: '',
+            timestamp: ''
+
+            // userLineID: '',
+            //  pictureUrl: '',
+            //  statusMessage: ''
+
         };
         this.initialize = this.initialize.bind(this);
         this.closeApp = this.closeApp.bind(this);
+
+
+        // this.getProfile = this.getProfile.bind(this);
+        // getProfile(e){
+        //     // https://developers.line.me/en/reference/liff/#liffgetprofile()
+        //     liff.getProfile().then(function (profile) {
+        //         document.getElementById('useridprofilefield').textContent = profile.userId;
+        //         document.getElementById('displaynamefield').textContent = profile.displayName;
+        
+        //         var profilePictureDiv = document.getElementById('profilepicturediv');
+        //         if (profilePictureDiv.firstElementChild) {
+        //             profilePictureDiv.removeChild(profilePictureDiv.firstElementChild);
+        //         }
+        //         var img = document.createElement('img');
+        //         img.src = profile.pictureUrl;
+        //         img.alt = "Profile Picture";
+        //         img.width = 200;
+        //         profilePictureDiv.appendChild(img);
+        
+        //         document.getElementById('statusmessagefield').textContent = profile.statusMessage;
+        //     }).catch(function (error) {
+        //         window.alert("Error getting profile: " + error);
+        //     });
+        // }
     }
 
 
@@ -70,17 +101,11 @@ class RegisFormAllCourses extends React.Component {
     }
 
     handleSumbit(event) {
-        // if (!event.target.checkValidity()) {
-        //     // form is invalid! so we do nothing
-        //     return;
-        //   }
-        // form is valid! We can parse and submit data
+
         event.preventDefault();
         const data = new FormData(event.target)
-        // const userId = this.state.userId
         const timestamp = new Date();
 
-        // this.props.name = this.state.name;
         console.log("userId -> ", this.state.userId);
         console.log("name -> ", this.state.name);
         console.log("tel -> ", this.state.tel);
@@ -91,17 +116,16 @@ class RegisFormAllCourses extends React.Component {
             method: 'POST',
             body: {
                 courseName: this.state.courseName,
-                userId: this.setState({ userId: '123456789' }),
+                userId: this.setState({userId: "123456789"}),
                 name: this.state.name,
                 tel: this.state.tel,
                 email: this.state.email,
                 timestamp: timestamp
             },
-        });
-
-
+        });       
+        
         this.props.history.push("/success")
-
+        
 
     }
 
@@ -154,13 +178,14 @@ class RegisFormAllCourses extends React.Component {
                                 <label>Phone</label>
                                 <input
                                     name="tel"
-                                    type="number"
+                                    type="tel"
                                     className="form-control"
                                     id="tel"
                                     placeholder="0123456789"
+                                    pattern="[0-9]{10}"
                                     required
                                     onChange={(e) => this.setState({ tel: e.target.value })}
-                                    parseInt
+                                   
                                 />
                             </div>
                             <div className="form-group">
@@ -200,6 +225,46 @@ class RegisFormAllCourses extends React.Component {
                                     Cancel
             </button>
                             </div>
+
+                            
+          {/* <div className="support">
+            <img width="25%" src="https://img.icons8.com/color/420/line-me.png" />
+            <img width="25%" src="https://lh3.googleusercontent.com/illfpW97yh9TtvtmtN-BiNcpomys5gzAj4nw8Je6Ydby814PRquAPcvsP2tAV43Iqe8logzjUnjp7tN5Dvk" />
+          </div>
+          <div className="support">
+            {
+              (this.state.pictureUrl && this.state.pictureUrl != '')
+                ?
+                <img width="25%" src={this.state.pictureUrl} />
+                :
+                null
+            }
+          </div>
+          {
+            (this.state.name && this.state.name != '')
+              ?
+              <p>Name: {this.state.name}</p>
+              :
+              null
+          }
+          {
+            (this.state.userLineID && this.state.userLineID != '')
+              ?
+              <p>LineID: {this.state.userLineID}</p>
+              :
+              null
+          }
+          {
+            (this.state.statusMessage && this.state.statusMessage != '')
+              ?
+              <p>statusMessage: {this.state.statusMessage}</p>
+              :
+              null
+          }
+
+                            <Button variant="contained" onClick={this.getProfile} style={{ marginRight: '20px' }} color="primary">
+                            Getdata INFO
+                         </Button> */}
 
                         </form>
 
