@@ -3,6 +3,13 @@ import { useLiff } from 'react-liff';
 import Routing from './routes/index';
 import RegisFormAllCourses from './components/RegisFormAllCourses';
 import './App.css';
+import {
+  withRouter,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 // import Success from './components/Success';
 
 const App = () => {

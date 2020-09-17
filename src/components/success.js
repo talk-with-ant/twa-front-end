@@ -5,28 +5,28 @@ import RegisFormAllCourses from './RegisFormAllCourses';
 const liff = window.liff;
 class SuccessPage extends React.Component {
 
-//     constructor(props) {
-//         super(props);
+    //     constructor(props) {
+    //         super(props);
 
-//         this.state = {
-//             courses: [],
-//             userId: '',
-//             name: '',
-//             tel: '',
-//             email: '',
-//             timestamp: '',
-//         };
-//         this.initialize = this.initialize.bind(this);
-//         this.closeApp = this.closeApp.bind(this);
-        
-//         }
+    //         this.state = {
+    //             courses: [],
+    //             userId: '',
+    //             name: '',
+    //             tel: '',
+    //             email: '',
+    //             timestamp: '',
+    //         };
+    //         this.initialize = this.initialize.bind(this);
+    //         this.closeApp = this.closeApp.bind(this);
 
-// comment = {
-//     data: {
-//         name: <RegisFormAllCourses name={this.state}/>
+    //         }
 
-//     },
-// };
+    // comment = {
+    //     data: {
+    //         name: <RegisFormAllCourses name={this.state}/>
+
+    //     },
+    // };
 
     // }
 

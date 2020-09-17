@@ -12,13 +12,10 @@ import './RegisFormAllCourses.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import Routing from '../routes';
-
-const liff = window.liff;
+import liff from "@line/liff";
 
 class RegisFormAllCourses extends React.Component {
 
-
-    
     constructor() {
         super();
         this.handleSubmit = this.handleSumbit.bind(this);
@@ -45,7 +42,7 @@ class RegisFormAllCourses extends React.Component {
         //     liff.getProfile().then(function (profile) {
         //         document.getElementById('useridprofilefield').textContent = profile.userId;
         //         document.getElementById('displaynamefield').textContent = profile.displayName;
-        
+
         //         var profilePictureDiv = document.getElementById('profilepicturediv');
         //         if (profilePictureDiv.firstElementChild) {
         //             profilePictureDiv.removeChild(profilePictureDiv.firstElementChild);
@@ -55,15 +52,13 @@ class RegisFormAllCourses extends React.Component {
         //         img.alt = "Profile Picture";
         //         img.width = 200;
         //         profilePictureDiv.appendChild(img);
-        
+
         //         document.getElementById('statusmessagefield').textContent = profile.statusMessage;
         //     }).catch(function (error) {
         //         window.alert("Error getting profile: " + error);
         //     });
         // }
     }
-
-
 
     initialize() {
         liff.init(async (data) => {
@@ -116,16 +111,16 @@ class RegisFormAllCourses extends React.Component {
             method: 'POST',
             body: {
                 courseName: this.state.courseName,
-                userId: this.setState({userId: "123456789"}),
+                userId: this.setState({ userId: "123456789" }),
                 name: this.state.name,
                 tel: this.state.tel,
                 email: this.state.email,
                 timestamp: timestamp
             },
-        });       
-        
+        });
+
         this.props.history.push("/success")
-        
+
 
     }
 
@@ -163,7 +158,7 @@ class RegisFormAllCourses extends React.Component {
                                     />
                             </div> */}
                             <div className="form-group">
-                                <label >Email address</label>
+                                <label >Email address {this.state.userId}</label>
                                 <input
                                     name="email"
                                     type="email"
@@ -185,7 +180,7 @@ class RegisFormAllCourses extends React.Component {
                                     pattern="[0-9]{10}"
                                     required
                                     onChange={(e) => this.setState({ tel: e.target.value })}
-                                   
+
                                 />
                             </div>
                             <div className="form-group">
@@ -226,8 +221,8 @@ class RegisFormAllCourses extends React.Component {
             </button>
                             </div>
 
-                            
-          {/* <div className="support">
+
+                            {/* <div className="support">
             <img width="25%" src="https://img.icons8.com/color/420/line-me.png" />
             <img width="25%" src="https://lh3.googleusercontent.com/illfpW97yh9TtvtmtN-BiNcpomys5gzAj4nw8Je6Ydby814PRquAPcvsP2tAV43Iqe8logzjUnjp7tN5Dvk" />
           </div>

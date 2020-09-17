@@ -36,8 +36,8 @@
   <script defer charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-  
-  <script>
+
+  <!-- <script>
     function runApp() {
       liff.getProfile().then(profile => {
         document.getElementById("pictureUrl").src = profile.pictureUrl;
@@ -47,7 +47,7 @@
         document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken().email;
       }).catch(err => console.error(err));
     }
-    
+
     liff.init({ liffId: "1654421462-oal2PRL7" }, () => {
       if (liff.isLoggedIn()) {
         runApp()
@@ -56,9 +56,9 @@
       }
     }, err => console.error(err.code, error.message));
 
-  </script>
+  </script> -->
 
-  
+
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -70,7 +70,7 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
-    <div id="root"></div>
+  <div id="root"></div>
 </body>
 
 </html>

@@ -7,6 +7,8 @@ import RegisFormAllCourses from "../components/RegisFormAllCourses";
 
 //import RegisterByCourse from "../components/RegisFormByCourse";
 import Success from "../components/Success";
+import TestLine from "../components/TestLine"
+
 
 export default class Routing extends React.Component {
     render() {
@@ -15,7 +17,7 @@ export default class Routing extends React.Component {
                 <Switch>
                     <Route exact path="/courses" component={RegisFormAllCourses} />
                     <Route exact path="/success" component={Success} />
-
+                    <Route exact path="/line" component={TestLine} />
 
                 </Switch>
             </BrowserRouter>
