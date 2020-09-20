@@ -5,7 +5,9 @@ import { withRouter } from "react-router-dom";
 import liff from "@line/liff";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { event } from 'jquery';
 //const liff = window.liff;
+
 class TestLine extends Component {
 
     constructor() {
@@ -25,7 +27,7 @@ class TestLine extends Component {
 
     initialize() {
         liff.init(async (data) => {
-            let profile = await liff.getProfile();
+            let profile = liff.getProfile();
             this.setState({
                 displayName: profile.displayName,
                 userId: profile.userId,
@@ -61,14 +63,15 @@ class TestLine extends Component {
                 .catch((error) => {
                     console.log(error);
                 })
-                ;
+                ;          
+                
     }
 
     getProfile() {
         liff.getProfile().then(dataInfo => {
             this.setState({
                 name: dataInfo.displayName,
-                userLineID: dataInfo.userId,
+                userId: dataInfo.userId,
                 pictureUrl: dataInfo.pictureUrl,
                 statusMessage: dataInfo.statusMessage
             });
@@ -103,18 +106,18 @@ class TestLine extends Component {
     handlerSubmit(event) {
         
         event.preventDefault();
-        // this.getProfile();
+       
         const data = new FormData(event.target)
         const timestamp = new Date();
-        // timestamp = this.setState({timestamp: new Date()})
-        liff.getProfile()
-        .then(profile => {
-        const userId = profile.userId
-            })
-            .catch((err) => {
-             console.log('error', err);
-            });
 
+        var formattedTimestamp = Intl.DateTimeFormat('en-US',{
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+          hour: "numeric",
+          minute: "2-digit",
+          second: "2-digit"
+        }).format(timestamp);
 
         // this.setState({
         //     userId: userId,
@@ -126,21 +129,15 @@ class TestLine extends Component {
         // });
         console.log(this.state);
 
-        {new Intl.DateTimeFormat("en-GB", {
-            year: "numeric",
-            month: "long",
-            day: "2-digit"
-          }).format(this.timestamp)}
-
         fetch('https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users/', {
             method: 'POST',
             body: JSON.stringify({
                 courseName: this.state.courseName,
-                userId: this.state.userLineID,
+                userId: this.state.userId,
                 name: this.state.name,
                 tel: this.state.tel,
                 email: this.state.email,
-                timestamp: new Date()
+                timestamp: formattedTimestamp
             }),
         });
 
@@ -155,7 +152,7 @@ class TestLine extends Component {
 
     render() {
       const { courses } = this.state;
-        const  userId   = this.state.userLineID;
+
         // const userLineID = this.dataInfo.userId;
         return (
             <div className="App">
@@ -255,11 +252,20 @@ class TestLine extends Component {
                                 <input required
                                     name="userId"
                                     type="text"
-                              
+                                    onLoad
                                     className="form-control"                                                                      
-                                    value= {this.state.userLineID}
+                                    value= {this.state.userId}
                                     onChange={this.handlerChange}
                                 />
+                            </div>
+                            <div>
+                                <label>Time</label>
+                                <input required
+                                    name="timestamp"
+                                    type="text"
+                                    value= {this.state.formattedTimestamp}
+                                    onChange={this.handlerChange}
+                                    />
                             </div>
                             <div className="form-group">
                                 <label >Email address</label>
