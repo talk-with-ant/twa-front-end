@@ -3,25 +3,42 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { withRouter } from "react-router-dom";
 import liff from "@line/liff";
-
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 //const liff = window.liff;
-
 class TestLine extends Component {
 
-    constructor(props) {
-        super(props);
-
+    constructor() {
+        super();
+        this.handlerSubmit = this.handlerSubmit.bind(this);
         this.state = {
+            courses: [],
+            userId: '',
             name: '',
-            userLineID: '',
-            pictureUrl: '',
-            statusMessage: '',
-            languageDevice: '',
-            versionSDK: '',
-            client: '',
-            isLogin: '',
-            os: ''
+            tel: '',
+            email: '',
+            timestamp: ''
         };
+    this.initialize = this.initialize.bind(this);
+
+    }
+
+    initialize() {
+        liff.init(async (data) => {
+            let profile = await liff.getProfile();
+            this.setState({
+                displayName: profile.displayName,
+                userId: profile.userId,
+                pictureUrl: profile.pictureUrl,
+                statusMessage: profile.statusMessage
+            });
+        });
+
+        
+    }
+
+    showProfile() {
+        liff.getProfile()
     }
 
     componentDidMount() {
@@ -34,6 +51,17 @@ class TestLine extends Component {
             .catch((err) => {
                 console.log(err)
             });
+
+            window.addEventListener('load', this.initialize);
+            axios
+                .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
+                .then((res) => {
+                    this.setState({ courses: res.data });
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+                ;
     }
 
     getProfile() {
@@ -52,36 +80,87 @@ class TestLine extends Component {
         const isLogin = liff.isLoggedIn();
         const os = liff.getOS();
 
-        this.setState({
-            languageDevice: languageDevice,
-            versionSDK: versionSDK,
-            client: (client === true) ? 'YES' : 'NO',
-            isLogin: (isLogin === true) ? 'Login' : 'Not Login',
-            os: os
-        });
+        // this.setState({
+        //     languageDevice: languageDevice,
+        //     versionSDK: versionSDK,
+        //     client: (client === true) ? 'YES' : 'NO',
+        //     isLogin: (isLogin === true) ? 'Login' : 'Not Login',
+        //     os: os
+        // });
     }
 
-    // sendMessage() {
+
+    // closeApp(event) {
+    //     event.preventDefault();
     //     liff.sendMessages([{
     //         type: 'text',
-    //         text: "Hi LIFF"
+    //         text: "Cancel Register"
     //     }]).then(() => {
     //         liff.closeWindow();
     //     });
     // }
 
-    closeLIFF() {
-        liff.closeWindow();
+    handlerSubmit(event) {
+        
+        event.preventDefault();
+        // this.getProfile();
+        const data = new FormData(event.target)
+        const timestamp = new Date();
+        // timestamp = this.setState({timestamp: new Date()})
+        liff.getProfile()
+        .then(profile => {
+        const userId = profile.userId
+            })
+            .catch((err) => {
+             console.log('error', err);
+            });
+
+
+        // this.setState({
+        //     userId: userId,
+        //     languageDevice: languageDevice,
+        //     versionSDK: versionSDK,
+        //     client: (client === true) ? 'YES' : 'NO',
+        //     isLogin: (isLogin === true) ? 'Login' : 'Not Login',
+        //     os: os
+        // });
+        console.log(this.state);
+
+        {new Intl.DateTimeFormat("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "2-digit"
+          }).format(this.timestamp)}
+
+        fetch('https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users/', {
+            method: 'POST',
+            body: JSON.stringify({
+                courseName: this.state.courseName,
+                userId: this.state.userLineID,
+                name: this.state.name,
+                tel: this.state.tel,
+                email: this.state.email,
+                timestamp: new Date()
+            }),
+        });
+
+        this.props.history.push("/success")
+
+
+    }
+
+    handlerChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
     }
 
     render() {
+      const { courses } = this.state;
+        const  userId   = this.state.userLineID;
+        // const userLineID = this.dataInfo.userId;
         return (
             <div className="App">
-                <header className="App-header">
-                    <div className="support">
-                        <img width="25%" src="https://img.icons8.com/color/420/line-me.png" />
-                        <img width="25%" src="https://lh3.googleusercontent.com/illfpW97yh9TtvtmtN-BiNcpomys5gzAj4nw8Je6Ydby814PRquAPcvsP2tAV43Iqe8logzjUnjp7tN5Dvk" />
-                    </div>
+                {/* <header className="App-header"> */}
+                
                     <div className="support">
                         {
                             (this.state.pictureUrl && this.state.pictureUrl != '')
@@ -90,7 +169,7 @@ class TestLine extends Component {
                                 :
                                 null
                         }
-                    </div>
+                    
                     {
                         (this.state.name && this.state.name != '')
                             ?
@@ -147,18 +226,107 @@ class TestLine extends Component {
                             :
                             null
                     }
+
+</div>
                     <div className="support">
-                        <Button variant="contained" onClick={this.getProfile.bind(this)} style={{ marginRight: '20px' }} color="primary">
+                        <button variant="contained" onClick={this.getProfile.bind(this)} style={{ marginRight: '20px' }} color="primary">
                             Getdata INFO
-            </Button>
-                        <Button variant="contained" onClick={this.sendMessage.bind(this)} style={{ marginRight: '20px' }}>
-                            Send Message
-            </Button>
-                        <Button variant="contained" onClick={this.closeLIFF.bind(this)} color="secondary">
-                            Close LIFF
-            </Button>
+            </button>                       
                     </div>
-                </header>
+                {/* </header> */}
+
+                    {/* <body> */}
+
+                    <h2 className="my-4 text-center">Register</h2>
+                        <form onSubmit={this.handlerSubmit} >
+                            <div className="form-group">                                                   
+                                <label >Name</label>
+                                <input  required
+                                name="name" 
+                                type="text" 
+                                // value={name}
+                                className="form-control"
+                                placeholder="Enter name"
+                                    onChange={this.handlerChange}
+                                />
+                            </div>                          
+                            <div className="form-group" >
+                            <label >LineID</label>
+                                <input required
+                                    name="userId"
+                                    type="text"
+                              
+                                    className="form-control"                                                                      
+                                    value= {this.state.userLineID}
+                                    onChange={this.handlerChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label >Email address</label>
+                                <input
+                                    name="email"
+                                    type="email"
+                                    className="form-control"
+                                    // value={email}
+                                    placeholder="Enter email"
+                                    required
+                                    onChange={this.handlerChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Phone</label>
+                                <input
+                                    name="tel"
+                                    type="tel"
+                                    className="form-control"
+                                    // value={tel}
+                                    placeholder="0123456789"
+                                    pattern="[0-9]{10}"
+                                    required
+                                    onChange={this.handlerChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label >Course</label>
+                                <select name="courseName"
+                                  required onChange={this.handlerChange}>
+                                    {courses.map((course) => (
+                                        <option key={course.id}>{course.data.courseName}</option>
+                                    ))}
+                                </select>
+
+                                {/* แก้ select ตาม css */}
+
+                            </div>
+                            <div className="form-check mb-4">
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    
+                                    name="check"
+                                    required
+                                />
+                                <label className="form-check-label">
+                                    Accept term and conditions
+              </label>
+                            </div>
+
+
+                            <div>
+                                {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
+                                <button className="btn btn-primary" onClick={this.getProfile.bind(this)}>
+                                    Submit
+                                    </button>
+                            </div>
+
+                            <div>
+                                <button onClick={this.closeApp} className="btn btn-warning">
+                                    Cancel
+            </button>
+                            </div>
+                        </form>
+                    {/* </body> */}
+
             </div>
         );
     }
