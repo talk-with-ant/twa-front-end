@@ -10,8 +10,8 @@ import { event } from 'jquery';
 
 class TestLine extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handlerSubmit = this.handlerSubmit.bind(this);
         this.state = {
             courses: [],
@@ -21,13 +21,13 @@ class TestLine extends Component {
             email: '',
             timestamp: ''
         };
-    this.initialize = this.initialize.bind(this);
+        this.initialize = this.initialize.bind(this);
 
     }
 
     initialize() {
         liff.init(async (data) => {
-            let profile = liff.getProfile();
+            let profile = await liff.getProfile();
             this.setState({
                 displayName: profile.displayName,
                 userId: profile.userId,
@@ -36,7 +36,7 @@ class TestLine extends Component {
             });
         });
 
-        
+
     }
 
     showProfile() {
@@ -44,27 +44,31 @@ class TestLine extends Component {
     }
 
     componentDidMount() {
+
+
         liff.init({ liffId: '1654421462-oal2PRL7' })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();
+
                 }
             })
             .catch((err) => {
                 console.log(err)
             });
 
-            window.addEventListener('load', this.initialize);
-            axios
-                .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
-                .then((res) => {
-                    this.setState({ courses: res.data });
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-                ;          
-                
+        liff.getProfile()
+        window.addEventListener('load', this.initialize);
+        axios
+            .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
+            .then((res) => {
+                this.setState({ courses: res.data });
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            ;
+
     }
 
     getProfile() {
@@ -104,19 +108,19 @@ class TestLine extends Component {
     // }
 
     handlerSubmit(event) {
-        
+
         event.preventDefault();
-       
+
         const data = new FormData(event.target)
         const timestamp = new Date();
 
-        var formattedTimestamp = Intl.DateTimeFormat('en-US',{
-          year: "numeric",
-          month: "short",
-          day: "2-digit",
-          hour: "numeric",
-          minute: "2-digit",
-          second: "2-digit"
+        var formattedTimestamp = Intl.DateTimeFormat('en-US', {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit"
         }).format(timestamp);
 
         // this.setState({
@@ -147,26 +151,26 @@ class TestLine extends Component {
     }
 
     handlerChange = (e) => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     render() {
-      const { courses } = this.state;
+        const { courses, userId } = this.state;
 
         // const userLineID = this.dataInfo.userId;
         return (
             <div className="App">
                 {/* <header className="App-header"> */}
-                
-                    <div className="support">
-                        {
-                            (this.state.pictureUrl && this.state.pictureUrl != '')
-                                ?
-                                <img width="25%" src={this.state.pictureUrl} />
-                                :
-                                null
-                        }
-                    
+
+                <div className="support">
+                    {
+                        (this.state.pictureUrl && this.state.pictureUrl != '')
+                            ?
+                            <img width="25%" src={this.state.pictureUrl} />
+                            :
+                            null
+                    }
+
                     {
                         (this.state.name && this.state.name != '')
                             ?
@@ -224,114 +228,114 @@ class TestLine extends Component {
                             null
                     }
 
-</div>
-                    <div className="support">
-                        <button variant="contained" onClick={this.getProfile.bind(this)} style={{ marginRight: '20px' }} color="primary">
-                            Getdata INFO
-            </button>                       
-                    </div>
+                </div>
+                {/* <div className="support">
+                    <button variant="contained" onClick={this.getProfile.bind(this)} style={{ marginRight: '20px' }} color="primary">
+                        Getdata INFO
+            </button>
+                </div> */}
                 {/* </header> */}
 
-                    {/* <body> */}
+                {/* <body> */}
 
-                    <h2 className="my-4 text-center">Register</h2>
-                        <form onSubmit={this.handlerSubmit} >
-                            <div className="form-group">                                                   
-                                <label >Name</label>
-                                <input  required
-                                name="name" 
-                                type="text" 
-                                // value={name}
-                                className="form-control"
-                                placeholder="Enter name"
-                                    onChange={this.handlerChange}
-                                />
-                            </div>                          
-                            <div className="form-group" >
-                            <label >LineID</label>
-                                <input required
-                                    name="userId"
-                                    type="text"
-                                    onLoad
-                                    className="form-control"                                                                      
-                                    value= {this.state.userId}
-                                    onChange={this.handlerChange}
-                                />
-                            </div>
-                            <div>
-                                <label>Time</label>
-                                <input required
-                                    name="timestamp"
-                                    type="text"
-                                    value= {this.state.formattedTimestamp}
-                                    onChange={this.handlerChange}
-                                    />
-                            </div>
-                            <div className="form-group">
-                                <label >Email address</label>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    className="form-control"
-                                    // value={email}
-                                    placeholder="Enter email"
-                                    required
-                                    onChange={this.handlerChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Phone</label>
-                                <input
-                                    name="tel"
-                                    type="tel"
-                                    className="form-control"
-                                    // value={tel}
-                                    placeholder="0123456789"
-                                    pattern="[0-9]{10}"
-                                    required
-                                    onChange={this.handlerChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label >Course</label>
-                                <select name="courseName"
-                                  required onChange={this.handlerChange}>
-                                    {courses.map((course) => (
-                                        <option key={course.id}>{course.data.courseName}</option>
-                                    ))}
-                                </select>
+                <h2 className="my-4 text-center">Register</h2>
+                <form onSubmit={this.handlerSubmit} >
+                    <div className="form-group">
+                        <label >Name</label>
+                        <input required
+                            name="name"
+                            type="text"
+                            // value={name}
+                            className="form-control"
+                            placeholder="Enter name"
+                            onChange={this.handlerChange}
+                        />
+                    </div>
+                    <div className="form-group" >
+                        <label >LineID</label>
+                        <input required
+                            name="userId"
+                            type="text hidden"
+                            onLoad
+                            className="form-control"
+                            value={this.getProfile.userId}
+                        // onChange={this.handlerChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Time</label>
+                        <input required
+                            name="timestamp"
+                            type="text"
+                            value={this.state.formattedTimestamp}
+                            onChange={this.handlerChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label >Email address</label>
+                        <input
+                            name="email"
+                            type="email"
+                            className="form-control"
+                            // value={email}
+                            placeholder="Enter email"
+                            required
+                            onChange={this.handlerChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Phone</label>
+                        <input
+                            name="tel"
+                            type="tel"
+                            className="form-control"
+                            // value={tel}
+                            placeholder="0123456789"
+                            pattern="[0-9]{10}"
+                            required
+                            onChange={this.handlerChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label >Course</label>
+                        <select name="courseName"
+                            required onChange={this.handlerChange}>
+                            {courses.map((course) => (
+                                <option key={course.id}>{course.data.courseName}</option>
+                            ))}
+                        </select>
 
-                                {/* แก้ select ตาม css */}
+                        {/* แก้ select ตาม css */}
 
-                            </div>
-                            <div className="form-check mb-4">
-                                <input
-                                    type="checkbox"
-                                    className="form-check-input"
-                                    
-                                    name="check"
-                                    required
-                                />
-                                <label className="form-check-label">
-                                    Accept term and conditions
+                    </div>
+                    <div className="form-check mb-4">
+                        <input
+                            type="checkbox"
+                            className="form-check-input"
+
+                            name="check"
+                            required
+                        />
+                        <label className="form-check-label">
+                            Accept term and conditions
               </label>
-                            </div>
+                    </div>
 
 
-                            <div>
-                                {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
-                                <button className="btn btn-primary" onClick={this.getProfile.bind(this)}>
-                                    Submit
+                    <div>
+                        {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
+                        <button className="btn btn-primary" onClick={this.getProfile.bind(this)}>
+                            Submit
                                     </button>
-                            </div>
+                    </div>
 
-                            <div>
-                                <button onClick={this.closeApp} className="btn btn-warning">
-                                    Cancel
+                    <div>
+                        <button onClick={this.closeApp} className="btn btn-warning">
+                            Cancel
             </button>
-                            </div>
-                        </form>
-                    {/* </body> */}
+                    </div>
+                </form>
+                {/* </body> */}
 
             </div>
         );
