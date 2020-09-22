@@ -26,15 +26,16 @@ class RegisFormAllCourses extends React.Component {
             name: '',
             tel: '',
             email: '',
+            courseName: ''
             // timestamp: '',
 
-            pictureUrl: '',
-            statusMessage: '',
-            languageDevice: '',
-            versionSDK: '',
-            client: '',
-            isLogin: '',
-            os: ''
+            // pictureUrl: '',
+            // statusMessage: '',
+            // languageDevice: '',
+            // versionSDK: '',
+            // client: '',
+            // isLogin: '',
+            // os: ''
             // userLineID: '',
             //  pictureUrl: '',
             //  statusMessage: ''
@@ -116,26 +117,26 @@ class RegisFormAllCourses extends React.Component {
     getProfile() {
         liff.getProfile().then(dataInfo => {
             this.setState({
-                name: dataInfo.displayName,
+                // name: dataInfo.displayName,
                 userId: dataInfo.userId,
-                pictureUrl: dataInfo.pictureUrl,
-                statusMessage: dataInfo.statusMessage
+                // pictureUrl: dataInfo.pictureUrl,
+                // statusMessage: dataInfo.statusMessage
             });
         });
 
-        const languageDevice = liff.getLanguage();
-        const versionSDK = liff.getVersion();
-        const client = liff.isInClient();
-        const isLogin = liff.isLoggedIn();
-        const os = liff.getOS();
+        // const languageDevice = liff.getLanguage();
+        // const versionSDK = liff.getVersion();
+        // const client = liff.isInClient();
+        // const isLogin = liff.isLoggedIn();
+        // const os = liff.getOS();
 
-        this.setState({
-            languageDevice: languageDevice,
-            versionSDK: versionSDK,
-            client: (client === true) ? 'YES' : 'NO',
-            isLogin: (isLogin === true) ? 'Login' : 'Not Login',
-            os: os
-        });
+        // this.setState({
+        //     languageDevice: languageDevice,
+        //     versionSDK: versionSDK,
+        //     client: (client === true) ? 'YES' : 'NO',
+        //     isLogin: (isLogin === true) ? 'Login' : 'Not Login',
+        //     os: os
+        // });
     }
 
 
@@ -147,7 +148,7 @@ class RegisFormAllCourses extends React.Component {
         const data = new FormData(event.target);
         // const timestampGen = new Date().toString();
         // this.timestamp = this.setState({ timestamp: new Date() });
-
+        console.log("course ->", this.state.courseName);
         console.log("userId -> ", this.state.userId);
         console.log("name -> ", this.state.name);
         console.log("tel -> ", this.state.tel);
@@ -159,14 +160,15 @@ class RegisFormAllCourses extends React.Component {
             'https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users',
             {
                 method: 'POST',
-                body: {
-                    courseName: this.state.courseName,
-                    userId: this.state.userId,
-                    name: this.state.name,
-                    tel: this.state.tel,
-                    email: this.state.email,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "courseName": this.state.courseName,
+                    "userId": this.state.userId,
+                    "name": this.state.name,
+                    "tel": this.state.tel,
+                    "email": this.state.email,
 
-                },
+                }),
             });
 
         this.props.history.push("/success")
@@ -203,13 +205,13 @@ class RegisFormAllCourses extends React.Component {
                             </div>
                             <div type="hidden">
 
-                                {
+                                {/* {
                                     (this.state.userId && this.state.userId != '')
                                         ?
                                         <p>LineID: {this.state.userId}</p>
                                         :
                                         null
-                                }
+                                } */}
 
 
                                 <input required
