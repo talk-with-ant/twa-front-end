@@ -21,23 +21,23 @@ class TestLine extends Component {
             email: '',
             timestamp: ''
         };
-        this.initialize = this.initialize.bind(this);
+        // this.initialize = this.initialize.bind(this);
 
     }
 
-    initialize() {
-        liff.init(async (data) => {
-            let profile = await liff.getProfile();
-            this.setState({
-                displayName: profile.displayName,
-                userId: profile.userId,
-                pictureUrl: profile.pictureUrl,
-                statusMessage: profile.statusMessage
-            });
-        });
+    // initialize() {
+    //     liff.init(async (data) => {
+    //         let profile = await liff.getProfile();
+    //         this.setState({
+    //             displayName: profile.displayName,
+    //             userId: profile.userId,
+    //             pictureUrl: profile.pictureUrl,
+    //             statusMessage: profile.statusMessage
+    //         });
+    //     });
 
 
-    }
+    // }
 
     showProfile() {
         liff.getProfile()
@@ -57,8 +57,8 @@ class TestLine extends Component {
                 console.log(err)
             });
 
-        liff.getProfile()
-        window.addEventListener('load', this.initialize);
+
+        // window.addEventListener('load', this.initialize);
         axios
             .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
             .then((res) => {

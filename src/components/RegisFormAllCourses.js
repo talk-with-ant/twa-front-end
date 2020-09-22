@@ -36,28 +36,6 @@ class RegisFormAllCourses extends React.Component {
         this.closeApp = this.closeApp.bind(this);
 
 
-        // this.getProfile = this.getProfile.bind(this);
-        // getProfile(e){
-        //     // https://developers.line.me/en/reference/liff/#liffgetprofile()
-        //     liff.getProfile().then(function (profile) {
-        //         document.getElementById('useridprofilefield').textContent = profile.userId;
-        //         document.getElementById('displaynamefield').textContent = profile.displayName;
-
-        //         var profilePictureDiv = document.getElementById('profilepicturediv');
-        //         if (profilePictureDiv.firstElementChild) {
-        //             profilePictureDiv.removeChild(profilePictureDiv.firstElementChild);
-        //         }
-        //         var img = document.createElement('img');
-        //         img.src = profile.pictureUrl;
-        //         img.alt = "Profile Picture";
-        //         img.width = 200;
-        //         profilePictureDiv.appendChild(img);
-
-        //         document.getElementById('statusmessagefield').textContent = profile.statusMessage;
-        //     }).catch(function (error) {
-        //         window.alert("Error getting profile: " + error);
-        //     });
-        // }
     }
 
     initialize() {
@@ -82,7 +60,45 @@ class RegisFormAllCourses extends React.Component {
         });
     }
 
+    getProfile() {
+        liff.getProfile().then(dataInfo => {
+            this.setState({
+                name: dataInfo.displayName,
+                userId: dataInfo.userId,
+                pictureUrl: dataInfo.pictureUrl,
+                statusMessage: dataInfo.statusMessage
+            });
+        });
+
+        const languageDevice = liff.getLanguage();
+        const versionSDK = liff.getVersion();
+        const client = liff.isInClient();
+        const isLogin = liff.isLoggedIn();
+        const os = liff.getOS();
+    }
+
     componentDidMount() {
+        // Using a Promise object
+        liff
+            .init({
+                liffId: "1654421462-oal2PRL7" // Use own liffId
+            })
+            .then(async () => {
+                if (!liff.isLoggedIn()) {
+                    liff.login();
+                }
+                // Start to use liff's api
+                liff.getProfile();
+            })
+            .catch((err) => {
+                // Error happens during initialization
+                console.log(err.code, err.message);
+                liff.closeWindow();
+            });
+
+        // Using a callback
+        // liff.init({ liffId: "1654421462-oal2PRL7" }, successCallback, errorCallback);
+
         window.addEventListener('load', this.initialize);
         axios
             .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
@@ -99,29 +115,34 @@ class RegisFormAllCourses extends React.Component {
 
         event.preventDefault();
         const data = new FormData(event.target)
-        const timestamp = new Date();
+        const timestamp = this.setState({ timestamp: new Date() })
 
         console.log("userId -> ", this.state.userId);
         console.log("name -> ", this.state.name);
         console.log("tel -> ", this.state.tel);
         console.log("email -> ", this.state.email);
-        console.log("timestamp -> ", timestamp);
+        console.log("timestamp -> ", this.state.timestamp);
+        console.log(this.state);
 
         fetch('https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users', {
             method: 'POST',
             body: {
                 courseName: this.state.courseName,
-                userId: this.setState({ userId: "123456789" }),
+                userId: this.state.userId,
                 name: this.state.name,
                 tel: this.state.tel,
                 email: this.state.email,
-                timestamp: timestamp
+                timestamp: this.state.timestamp
             },
         });
 
         this.props.history.push("/success")
 
 
+    }
+
+    handlerChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     render() {
@@ -143,22 +164,30 @@ class RegisFormAllCourses extends React.Component {
                                     id="name"
                                     placeholder="Enter name"
                                     required
-                                    onChange={(e) => this.setState({ name: e.target.value })}
+                                    onChange={this.handlerChange}
                                 />
                             </div>
-                            {/* <div className="form-group">
-                                <label >Last name</label>
-                                    <input
-                                        name="lastname"
-                                        type="text"
-                                        className="form-control"
-                                        id="lastname"                                    
-                                        placeholder="Enter last name"
-                                        required
-                                    />
-                            </div> */}
+                            <div>
+                                {/* {
+                                    (this.state.userId && this.state.userId != '')
+                                        ?
+                                        <p>LineID: {this.state.userId}</p>
+                                        :
+                                        null
+                                } */}
+                                <label >LineID</label>
+                                <input required
+                                    name="userId"
+                                    type="hidden"
+                                    onLoad
+                                    className="form-control"
+                                    value={this.state.userId}
+                                    onChange={this.handlerChange}
+                                />
+
+                            </div>
                             <div className="form-group">
-                                <label >Email address {this.state.userId}</label>
+                                <label >Email address </label>
                                 <input
                                     name="email"
                                     type="email"
@@ -166,7 +195,7 @@ class RegisFormAllCourses extends React.Component {
                                     id="email"
                                     placeholder="Enter email"
                                     required
-                                    onChange={(e) => this.setState({ email: e.target.value })}
+                                    onChange={this.handlerChange}
                                 />
                             </div>
                             <div className="form-group">
@@ -179,15 +208,15 @@ class RegisFormAllCourses extends React.Component {
                                     placeholder="0123456789"
                                     pattern="[0-9]{10}"
                                     required
-                                    onChange={(e) => this.setState({ tel: e.target.value })}
+                                    onChange={this.handlerChange}
 
                                 />
                             </div>
                             <div className="form-group">
                                 <label >Course</label>
-                                <select value="courseName" required onChange={(e) => this.setState({ courseName: e.target.value })}>
+                                <select name="courseName" required onChange={this.handlerChange}>
                                     {courses.map((course) => (
-                                        <option key={course.id}>{course.data.name}</option>
+                                        <option key={course.id}>{course.data.courseName}</option>
                                     ))}
                                 </select>
 
@@ -208,13 +237,12 @@ class RegisFormAllCourses extends React.Component {
                             </div>
 
 
+
                             <div>
-                                {/* <Link to="/success" className="btn btn-primary" type="submit">Sign up</Link> */}
-                                <button className="btn btn-primary">
+                                <button className="btn btn-primary" onClick={this.getProfile.bind(this)}>
                                     Submit
                                     </button>
                             </div>
-
                             <div>
                                 <button onClick={this.closeApp} className="btn btn-warning">
                                     Cancel
@@ -222,44 +250,7 @@ class RegisFormAllCourses extends React.Component {
                             </div>
 
 
-                            {/* <div className="support">
-            <img width="25%" src="https://img.icons8.com/color/420/line-me.png" />
-            <img width="25%" src="https://lh3.googleusercontent.com/illfpW97yh9TtvtmtN-BiNcpomys5gzAj4nw8Je6Ydby814PRquAPcvsP2tAV43Iqe8logzjUnjp7tN5Dvk" />
-          </div>
-          <div className="support">
-            {
-              (this.state.pictureUrl && this.state.pictureUrl != '')
-                ?
-                <img width="25%" src={this.state.pictureUrl} />
-                :
-                null
-            }
-          </div>
-          {
-            (this.state.name && this.state.name != '')
-              ?
-              <p>Name: {this.state.name}</p>
-              :
-              null
-          }
-          {
-            (this.state.userLineID && this.state.userLineID != '')
-              ?
-              <p>LineID: {this.state.userLineID}</p>
-              :
-              null
-          }
-          {
-            (this.state.statusMessage && this.state.statusMessage != '')
-              ?
-              <p>statusMessage: {this.state.statusMessage}</p>
-              :
-              null
-          }
 
-                            <Button variant="contained" onClick={this.getProfile} style={{ marginRight: '20px' }} color="primary">
-                            Getdata INFO
-                         </Button> */}
 
                         </form>
 
