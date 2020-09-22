@@ -14,6 +14,7 @@ import { Button } from 'react-bootstrap';
 import Routing from '../routes';
 import liff from "@line/liff";
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
+import Select from 'react-select';
 
 class RegisFormAllCourses extends React.Component {
 
@@ -27,21 +28,9 @@ class RegisFormAllCourses extends React.Component {
             tel: '',
             email: '',
             courseName: ''
-            // timestamp: '',
 
-            // pictureUrl: '',
-            // statusMessage: '',
-            // languageDevice: '',
-            // versionSDK: '',
-            // client: '',
-            // isLogin: '',
-            // os: ''
-            // userLineID: '',
-            //  pictureUrl: '',
-            //  statusMessage: ''
 
         };
-        // this.initialize = this.initialize.bind(this);
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
         this.closeLIFF = this.closeLIFF.bind(this);
@@ -50,17 +39,6 @@ class RegisFormAllCourses extends React.Component {
 
     }
 
-    // initialize() {
-    //     liff.init(async (data) => {
-    //         let profile = await liff.getProfile();
-    //         this.setState({
-    //             displayName: profile.displayName,
-    //             userId: profile.userId,
-    //             pictureUrl: profile.pictureUrl,
-    //             statusMessage: profile.statusMessage
-    //         });
-    //     });
-    // }
 
     componentDidMount() {
         // Using a Promise object
@@ -73,7 +51,8 @@ class RegisFormAllCourses extends React.Component {
                 const lineProfile = liff.getProfile();
                 console.log(lineProfile)
                 const idToken = liff.getIDToken();
-                console.log(idToken) // print raw idToken object
+                console.log(idToken)
+                // print raw idToken object
             })
             .catch((err) => {
                 // Error happens during initialization
@@ -94,12 +73,9 @@ class RegisFormAllCourses extends React.Component {
             })
             ;
 
-        // getProfile();
-
     }
 
     closeLIFF() {
-
         liff.closeWindow();
     }
 
@@ -156,20 +132,21 @@ class RegisFormAllCourses extends React.Component {
         // console.log("timestamp -> ", timestampGen);
         console.log(this.state);
 
-        fetch(
-            'https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "courseName": this.state.courseName,
-                    "userId": this.state.userId,
-                    "name": this.state.name,
-                    "tel": this.state.tel,
-                    "email": this.state.email,
-
-                }),
-            });
+        axios
+            .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users", {
+                courseName: this.state.courseName,
+                userId: this.state.userId,
+                name: this.state.name,
+                tel: this.state.tel,
+                email: this.state.email
+            })
+            .then(response => {
+                console.log("response: ", response)
+                // do something about response
+            })
+            .catch(err => {
+                console.error(err)
+            })
 
         this.props.history.push("/success")
 
@@ -200,7 +177,6 @@ class RegisFormAllCourses extends React.Component {
                                     placeholder="Enter name"
                                     required
                                     onChange={this.handlerChange}
-                                // onClick={this.getProfile}
                                 />
                             </div>
                             <div type="hidden">
@@ -212,18 +188,13 @@ class RegisFormAllCourses extends React.Component {
                                         :
                                         null
                                 } */}
-
-
                                 <input required
                                     name="userId"
                                     type="hidden"
                                     onLoad
                                     className="form-control"
                                     value={this.state.userId}
-                                // onChange={this.handlerChange}
                                 />
-
-
                             </div>
                             <div className="form-group">
                                 <label >Email address </label>
@@ -253,8 +224,12 @@ class RegisFormAllCourses extends React.Component {
                             </div>
                             <div className="form-group">
                                 <label >Course</label>
-                                <select name="courseName" required onChange={this.handlerChange}>
+                                <select className="custom-select  mb-3" name="courseName"
+                                    value="courseName" required
+                                    onChange={this.handlerChange}>
+
                                     {courses.map((course) => (
+                                        // <option value="" selected disabled>Please select</option>,
                                         <option key={course.id}>{course.data.courseName}</option>
                                     ))}
                                 </select>
