@@ -9,10 +9,14 @@ import {
 } from "react-router-dom";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
+import './custom.css';
+import { Button, Container,Row,Col,Form } from 'react-bootstrap';
 import Routing from '../routes';
 import liff from "@line/liff";
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
+import BannerTop from './BannerTop';
+import SuccessPage from './Success';
+
 
 
 class RegisFormAllCourses extends React.Component {
@@ -41,6 +45,8 @@ class RegisFormAllCourses extends React.Component {
 
     componentDidMount() {
         // Using a Promise object
+
+/* Hide this when dev for conveinience */
         liff.init({ liffId: "1654421462-oal2PRL7" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
@@ -58,6 +64,7 @@ class RegisFormAllCourses extends React.Component {
                 console.log(err.code, err.message);
                 // liff.closeWindow();
             });
+/* Hide this when dev for conveinience */
 
         // Using a callback
         // liff.init({ liffId: "1654421462-oal2PRL7" }, successCallback, errorCallback);
@@ -158,16 +165,20 @@ class RegisFormAllCourses extends React.Component {
 
     render() {
         const { courses } = this.state;
+        
         return (
-
-            <div className="container center">
-                <div className="row mt-4">
-                    <div className="col-12 col-md-6 offset-md-3">
-                        <h2 className="my-4 text-center">Register</h2>
-                        <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
-
+            <div type="hidden">
+        <BannerTop message="Register" />
+        {/* <SuccessPage name={this.state.name}/> */}
+            
+            <div className="container mw-25">
+                
+                    <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                             <div className="form-group">
+                                <div className="text-left">
                                 <label >Name</label>
+                                </div>
+                                
                                 <input
                                     name="name"
                                     type="text"
@@ -179,14 +190,7 @@ class RegisFormAllCourses extends React.Component {
                                 />
                             </div>
                             <div type="hidden">
-
-                                {/* {
-                                    (this.state.userId && this.state.userId != '')
-                                        ?
-                                        <p>LineID: {this.state.userId}</p>
-                                        :
-                                        null
-                                } */}
+                                {/* {(this.state.userId && this.state.userId != '')?<p>LineID: {this.state.userId}</p>:null} */}
                                 <input required
                                     name="userId"
                                     type="hidden"
@@ -196,7 +200,9 @@ class RegisFormAllCourses extends React.Component {
                                 />
                             </div>
                             <div className="form-group">
+                                <div className="text-left">
                                 <label >Email address </label>
+                                </div>
                                 <input
                                     name="email"
                                     type="email"
@@ -208,7 +214,10 @@ class RegisFormAllCourses extends React.Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Phone</label>
+                            <div className="text-left">
+                            <label>Phone</label>
+                            </div>
+                                
                                 <input
                                     name="tel"
                                     type="tel"
@@ -223,7 +232,10 @@ class RegisFormAllCourses extends React.Component {
                             </div>
 
                             <div className="form-group">
-                                <label >Course</label>
+                            <div className="text-left">
+                            <label >Course</label>
+                            </div>
+                                
                                 <select
                                     className="custom-select  mb-3"
                                     name="courseName" required
@@ -238,7 +250,7 @@ class RegisFormAllCourses extends React.Component {
                                 {/* แก้ select ตาม css */}
 
                             </div>
-                            <div className="form-check mb-4">
+                            <div className="form-check mb-4 text-left">
                                 <input
                                     type="checkbox"
                                     className="form-check-input"
@@ -248,36 +260,45 @@ class RegisFormAllCourses extends React.Component {
                                 />
                                 <label className="form-check-label">
                                     Accept term and conditions
-              </label>
+                                </label>
                             </div>
 
-                            {/* <div>
-                                <button className="btn btn-primary" onClick={this.getProfile.bind(this)}>
-                                    Submit
-                                    </button>
+                            <div>
+                            <input type="submit" value="Submit"/>
                             </div>
                             <div>
-                                <button onClick={this.closeLIFF.bind(this)} className="btn btn-warning">
-                                    Cancel
-            </button>
-                            </div> */}
-                            <Button type="submit" variant="primary" style={{ backgroundColor: "#FF783E" }}>Submit</Button>
-                            <Button type="button" variant="outline-secondary"
-
-                                onClick={this.closeLIFF}>Close</Button>
-                            <Button variant="outline-secondary">Secondary</Button>{' '}
-                            <Button variant="outline-warning">Warning</Button>{' '}
-
-
-
-
-                        </form>
-
-
-                    </div>
-                </div>
+                                <input type="button" onClick={this.closeLIFF} value="Close"/>
+                                   
+            
+                            </div>
+                            
+                            {/* <Col >
+                            <Button 
+                            type="submit" 
+                            variant="primary" 
+                            size="lg" 
+                            block 
+                            style={{ 
+                                backgroundColor: "#FF783E",
+                                marginBottom: "20px",
+                                borderColor: "#FF783E",
+                               borderRadius: "2px",
+                                transition: "color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out"
+                                
+                                }}
+                                >Submit</Button></Col>
+                            <Col >
+                            <Button type="button" className="btn" size="lg" block onClick={this.closeLIFF}
+                             style={{     
+                                borderColor: "#FF783E",
+                                color: "#FF783E",
+                                
+                                
+                                }}>Close</Button></Col> */}
+                                                 
+                        </form>               
             </div>
-
+</div>
 
         )
     }

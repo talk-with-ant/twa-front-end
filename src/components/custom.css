@@ -1,0 +1,57 @@
+  input[type=submit] {
+    width: 50%;
+    background-color: #FF783E;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+  }
+
+  input[type=submit]:hover {
+    background-color: #f85915;
+  }
+  input[type=button] {
+    width: 50%;
+    color: #FF783E;
+    background-color: #f7f7f7;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    border: 2px solid #f7f7f7;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+  }
+
+   input[type=button]:hover {
+    background-color: #e7e7e7;
+    border: 2px solid #e7e7e7;
+  }
+
+  div {
+    /* border-radius: 5px; */
+    background-color: #ffffff;
+    padding-bottom: 3px;
+    
+  } 
+ 
+  
+   .btn { 
+    background-color: DodgerBlue; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    width: 100%;
+  }
+
+  .container {
+    max-width: 516px;
+    margin-top: 1rem;
+  }

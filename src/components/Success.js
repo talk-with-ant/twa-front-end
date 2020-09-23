@@ -2,7 +2,8 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import RegisFormAllCourses from './RegisFormAllCourses';
 import liff from "@line/liff";
-// import './RegisFormAllCourses.css';
+import './custom.css';
+import BannerTop from './BannerTop';
 
 class SuccessPage extends React.Component {
 
@@ -24,19 +25,17 @@ class SuccessPage extends React.Component {
 
     render() {
         return (
-            <div className="container center">
-                <div className="row mt-4">
-                    <div className="col-12 col-md-6 offset-md-3">
-                        <h1>Register Success !</h1>
+            <div>
+                <BannerTop message="Success" />
+                <div className="container mw-25">
+                    <h1>Register Success !</h1>
                              Thank you: {this.props.name}
                         <div>
-                            <input type="button-primary" onClick={this.closeLIFF.bind(this)} value="Close" />
+                            <input type="button" onClick={this.closeLIFF.bind(this)} value="Close" />
                         </div>
-                    </div>
                 </div>
-
-
-            </div>
+                        
+                 </div>
 
 
 
