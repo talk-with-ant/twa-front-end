@@ -40,6 +40,10 @@
     margin-bottom: 4px;
   }
 
+  center{
+    position: absolute;
+  }
+
   input[type=text], select {
     width: 100%;
     padding: 12px 20px;
@@ -57,7 +61,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-  input[type=number], select {
+  /* input[type=number], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -65,7 +69,7 @@ input::-webkit-inner-spin-button {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-  }
+  } */
   
   input[type=submit] {
     width: 50%;
@@ -79,19 +83,30 @@ input::-webkit-inner-spin-button {
     width: 100%;
   }
   
+  label{
+
+    text-align: left;
+  }
+
   input[type=submit]:hover {
-    background-color: #ff6f32;
+    background-color: #ffa27a;
   }
 
   input[type=button] {
     width: 50%;
     color: #FF783E;
+    background-color: #ffffffe7;
     padding: 10px 20px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
+    border: 2px solid #FF783E;
+  }
+
+   input[type=button]:hover {
+    background-color: #cfcfcf;
   }
   
   div {
@@ -100,8 +115,9 @@ input::-webkit-inner-spin-button {
     padding-bottom: 3px;
     
   } 
+ 
   
-  .btn {
+   .btn { 
     background-color: DodgerBlue; /* Blue background */
     border: none; /* Remove borders */
     color: white; /* White text */
@@ -110,11 +126,15 @@ input::-webkit-inner-spin-button {
     cursor: pointer; /* Mouse pointer on hover */
     width: 100%;
   }
+  
 
-  .btn:hover {
+ /* .btn:hover {
     background-color: RoyalBlue;
-  }
+  }*/
 
+  .btn-outline-secondary{
+    
+  }
   
 
   

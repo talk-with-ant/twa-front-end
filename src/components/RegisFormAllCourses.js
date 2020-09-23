@@ -8,12 +8,12 @@ import {
     Link
 } from "react-router-dom";
 import axios from 'axios';
-import './RegisFormAllCourses.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import Routing from '../routes';
 import liff from "@line/liff";
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
+
 
 class RegisFormAllCourses extends React.Component {
 
@@ -160,7 +160,7 @@ class RegisFormAllCourses extends React.Component {
         const { courses } = this.state;
         return (
 
-            <div className="container">
+            <div className="container center">
                 <div className="row mt-4">
                     <div className="col-12 col-md-6 offset-md-3">
                         <h2 className="my-4 text-center">Register</h2>
@@ -221,6 +221,7 @@ class RegisFormAllCourses extends React.Component {
 
                                 />
                             </div>
+
                             <div className="form-group">
                                 <label >Course</label>
                                 <select
@@ -260,9 +261,13 @@ class RegisFormAllCourses extends React.Component {
                                     Cancel
             </button>
                             </div> */}
+                            <Button type="submit" variant="primary" style={{ backgroundColor: "#FF783E" }}>Submit</Button>
+                            <Button type="button" variant="outline-secondary"
 
-                            <input type="submit" value="Submit" onClick={this.getProfile} />
-                            <input type="button" value="Close" onClick={this.closeLIFF} />
+                                onClick={this.closeLIFF}>Close</Button>
+                            <Button variant="outline-secondary">Secondary</Button>{' '}
+                            <Button variant="outline-warning">Warning</Button>{' '}
+
 
 
 

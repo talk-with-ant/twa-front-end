@@ -2,35 +2,11 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import RegisFormAllCourses from './RegisFormAllCourses';
 import liff from "@line/liff";
-import './RegisFormAllCourses.css';
+// import './RegisFormAllCourses.css';
 
-// const liff = window.liff;
 class SuccessPage extends React.Component {
 
-    //     constructor(props) {
-    //         super(props);
 
-    //         this.state = {
-    //             courses: [],
-    //             userId: '',
-    //             name: '',
-    //             tel: '',
-    //             email: '',
-    //             timestamp: '',
-    //         };
-    //         this.initialize = this.initialize.bind(this);
-    //         this.closeApp = this.closeApp.bind(this);
-
-    //         }
-
-    // comment = {
-    //     data: {
-    //         name: <RegisFormAllCourses name={this.state}/>
-
-    //     },
-    // };
-
-    // }
     closeLIFF() {
         liff.closeWindow();
     }
@@ -48,12 +24,18 @@ class SuccessPage extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <h1>Register Success !</h1>
-                Thank you: {this.props.name}
-                <button onClick={this.closeLIFF.bind(this)} className="btn btn-warning">
-                    Close
-            </button>
+            <div className="container center">
+                <div className="row mt-4">
+                    <div className="col-12 col-md-6 offset-md-3">
+                        <h1>Register Success !</h1>
+                             Thank you: {this.props.name}
+                        <div>
+                            <input type="button-primary" onClick={this.closeLIFF.bind(this)} value="Close" />
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
 

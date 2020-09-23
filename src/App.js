@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useLiff } from 'react-liff';
 import Routing from './routes/index';
 import RegisFormAllCourses from './components/RegisFormAllCourses';
-import './App.css';
+// import './App.css';
+import { Button } from 'react-bootstrap';
+
 import {
   withRouter,
   BrowserRouter as Router,
@@ -10,7 +12,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-// import Success from './components/Success';
+import BannerTop from './components/HeaderBanner';
 
 const App = () => {
   const [displayName, setDisplayName] = useState('');
@@ -42,7 +44,7 @@ const App = () => {
 
   return (
     <div className="App">
-      NAV Bar?
+      <BannerTop />
       {/* <header className="App-header">{showDisplayName()}</header> */}
       <Routing />
       {/* <RegisFormAllCourses /> */}
