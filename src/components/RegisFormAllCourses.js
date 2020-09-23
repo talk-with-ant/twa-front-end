@@ -14,7 +14,6 @@ import { Button } from 'react-bootstrap';
 import Routing from '../routes';
 import liff from "@line/liff";
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
-import Select from 'react-select';
 
 class RegisFormAllCourses extends React.Component {
 
@@ -224,13 +223,14 @@ class RegisFormAllCourses extends React.Component {
                             </div>
                             <div className="form-group">
                                 <label >Course</label>
-                                <select className="custom-select  mb-3" name="courseName"
-                                    value="courseName" required
+                                <select
+                                    className="custom-select  mb-3"
+                                    name="courseName" required
                                     onChange={this.handlerChange}>
+                                    <option value="" selected disabled>Please select</option>,
 
                                     {courses.map((course) => (
-                                        // <option value="" selected disabled>Please select</option>,
-                                        <option key={course.id}>{course.data.courseName}</option>
+                                        <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
                                     ))}
                                 </select>
 
