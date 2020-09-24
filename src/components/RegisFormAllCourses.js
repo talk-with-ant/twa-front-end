@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
-import { Button, Container,Row,Col,Form } from 'react-bootstrap';
+import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 import Routing from '../routes';
 import liff from "@line/liff";
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
@@ -36,7 +36,6 @@ class RegisFormAllCourses extends React.Component {
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
-        this.closeLIFF = this.closeLIFF.bind(this);
         this.handlerChange = this.handlerChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -46,7 +45,7 @@ class RegisFormAllCourses extends React.Component {
     componentDidMount() {
         // Using a Promise object
 
-/* Hide this when dev for conveinience */
+        /* Hide this when dev for conveinience */
         liff.init({ liffId: "1654421462-oal2PRL7" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
@@ -64,7 +63,7 @@ class RegisFormAllCourses extends React.Component {
                 console.log(err.code, err.message);
                 // liff.closeWindow();
             });
-/* Hide this when dev for conveinience */
+        /* Hide this when dev for conveinience */
 
         // Using a callback
         // liff.init({ liffId: "1654421462-oal2PRL7" }, successCallback, errorCallback);
@@ -81,9 +80,7 @@ class RegisFormAllCourses extends React.Component {
 
     }
 
-    closeLIFF() {
-        liff.closeWindow();
-    }
+
 
 
     closeApp(event) {
@@ -94,6 +91,7 @@ class RegisFormAllCourses extends React.Component {
         }]).then(() => {
             liff.closeWindow();
         });
+
     }
 
     getProfile() {
@@ -138,6 +136,20 @@ class RegisFormAllCourses extends React.Component {
         // console.log("timestamp -> ", timestampGen);
         console.log(this.state);
 
+        liff.sendMessages([
+            {
+                type: 'text',
+                text: "ลงทะเบียน " + this.state.courseName + " สำเร็จ"
+            }
+        ])
+            .then(() => {
+                console.log('message sent');
+
+            })
+            .catch((err) => {
+                console.log('error', err);
+            });
+
         axios
             .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users", {
                 courseName: this.state.courseName,
@@ -154,7 +166,9 @@ class RegisFormAllCourses extends React.Component {
                 console.error(err)
             })
 
-        this.props.history.push("/success")
+
+
+        this.props.history.push("/success/" + this.state.courseName)
 
 
     }
@@ -165,140 +179,114 @@ class RegisFormAllCourses extends React.Component {
 
     render() {
         const { courses } = this.state;
-        
+
         return (
             <div type="hidden">
-        <BannerTop message="Register" />
-        {/* <SuccessPage name={this.state.name}/> */}
-            
-            <div className="container mw-25">
-                
+                <BannerTop message="Register" />
+                {/* <SuccessPage courseName={this.state.courseName} /> */}
+                <div className="container mw-25">
+
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
-                            <div className="form-group">
-                                <div className="text-left">
+                        <div className="form-group">
+                            <div className="text-left">
                                 <label >Name</label>
-                                </div>
-                                
-                                <input
-                                    name="name"
-                                    type="text"
-                                    className="form-control"
-                                    id="name"
-                                    placeholder="Enter name"
-                                    required
-                                    onChange={this.handlerChange}
-                                />
                             </div>
-                            <div type="hidden">
-                                {/* {(this.state.userId && this.state.userId != '')?<p>LineID: {this.state.userId}</p>:null} */}
-                                <input required
-                                    name="userId"
-                                    type="hidden"
-                                    onLoad
-                                    className="form-control"
-                                    value={this.state.userId}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <div className="text-left">
+
+                            <input
+                                name="name"
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                placeholder="Enter name"
+                                required
+                                onChange={this.handlerChange}
+                            />
+                        </div>
+                        <div type="hidden">
+                            {/* {(this.state.userId && this.state.userId != '')?<p>LineID: {this.state.userId}</p>:null} */}
+                            <input required
+                                name="userId"
+                                type="hidden"
+                                onLoad
+                                className="form-control"
+                                value={this.state.userId}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <div className="text-left">
                                 <label >Email address </label>
-                                </div>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    className="form-control"
-                                    id="email"
-                                    placeholder="Enter email"
-                                    required
-                                    onChange={this.handlerChange}
-                                />
                             </div>
-                            <div className="form-group">
+                            <input
+                                name="email"
+                                type="email"
+                                className="form-control"
+                                id="email"
+                                placeholder="Enter email"
+                                required
+                                onChange={this.handlerChange}
+                            />
+                        </div>
+                        <div className="form-group">
                             <div className="text-left">
-                            <label>Phone</label>
-                            </div>
-                                
-                                <input
-                                    name="tel"
-                                    type="tel"
-                                    className="form-control"
-                                    id="tel"
-                                    placeholder="0123456789"
-                                    pattern="[0-9]{10}"
-                                    required
-                                    onChange={this.handlerChange}
-
-                                />
+                                <label>Phone</label>
                             </div>
 
-                            <div className="form-group">
+                            <input
+                                name="tel"
+                                type="tel"
+                                className="form-control"
+                                id="tel"
+                                placeholder="0123456789"
+                                pattern="[0-9]{10}"
+                                required
+                                onChange={this.handlerChange}
+
+                            />
+                        </div>
+
+                        <div className="form-group">
                             <div className="text-left">
-                            <label >Course</label>
+                                <label >Course</label>
                             </div>
-                                
-                                <select
-                                    className="custom-select  mb-3"
-                                    name="courseName" required
-                                    onChange={this.handlerChange}>
-                                    <option value="" selected disabled>Please select</option>,
+
+                            <select
+                                className="custom-select  mb-3"
+                                name="courseName" required
+                                onChange={this.handlerChange}>
+                                <option value="" selected disabled>Please select</option>,
 
                                     {courses.map((course) => (
-                                        <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
-                                    ))}
-                                </select>
+                                    <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
+                                ))}
+                            </select>
 
-                                {/* แก้ select ตาม css */}
+                            {/* แก้ select ตาม css */}
 
-                            </div>
-                            <div className="form-check mb-4 text-left">
-                                <input
-                                    type="checkbox"
-                                    className="form-check-input"
-                                    id="check"
-                                    name="check"
-                                    required
-                                />
-                                <label className="form-check-label">
-                                    Accept term and conditions
+                        </div>
+                        <div className="form-check mb-4 text-left">
+                            <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id="check"
+                                name="check"
+                                required
+                            />
+                            <label className="form-check-label">
+                                Accept term and conditions
                                 </label>
-                            </div>
+                        </div>
 
-                            <div>
-                            <input type="submit" value="Submit"/>
-                            </div>
-                            <div>
-                                <input type="button" onClick={this.closeLIFF} value="Close"/>
-                                   
-            
-                            </div>
-                            
-                            {/* <Col >
-                            <Button 
-                            type="submit" 
-                            variant="primary" 
-                            size="lg" 
-                            block 
-                            style={{ 
-                                backgroundColor: "#FF783E",
-                                marginBottom: "20px",
-                                borderColor: "#FF783E",
-                               borderRadius: "2px",
-                                transition: "color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out"
-                                
-                                }}
-                                >Submit</Button></Col>
-                            <Col >
-                            <Button type="button" className="btn" size="lg" block onClick={this.closeLIFF}
-                             style={{     
-                                borderColor: "#FF783E",
-                                color: "#FF783E",
-                                
-                                
-                                }}>Close</Button></Col> */}
-                                                 
-                        </form>               
+                        <div>
+                            <input type="submit" value="Submit" />
+                        </div>
+                        <div>
+                            <input type="button" onClick={this.closeApp} value="Close" />
+
+
+                        </div>
+                    </form>
+                </div>
             </div>
-</div>
 
         )
     }

@@ -8,7 +8,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, BrowserRouter
 } from "react-router-dom";
 import BannerTop from './components/BannerTop';
 
@@ -39,6 +39,8 @@ const App = () => {
       </>
     );
   }
+
+
 
   return (
     <div className="App">
