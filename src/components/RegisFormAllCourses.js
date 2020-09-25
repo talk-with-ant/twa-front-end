@@ -10,12 +10,13 @@ import {
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
-import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 import Routing from '../routes';
 import liff from "@line/liff";
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import BannerTop from './BannerTop';
 import SuccessPage from './Success';
+// import { Button, Container, Row, Col, Form } from 'react-bootstrap';
+
 
 
 
@@ -45,7 +46,7 @@ class RegisFormAllCourses extends React.Component {
     componentDidMount() {
         // Using a Promise object
 
-        /* Hide this when dev for conveinience */
+        /* VV Hide this when dev for conveinience */
         liff.init({ liffId: "1654421462-oal2PRL7" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
@@ -63,7 +64,7 @@ class RegisFormAllCourses extends React.Component {
                 console.log(err.code, err.message);
                 // liff.closeWindow();
             });
-        /* Hide this when dev for conveinience */
+        /* ^^ Hide this when dev for conveinience */
 
         // Using a callback
         // liff.init({ liffId: "1654421462-oal2PRL7" }, successCallback, errorCallback);
@@ -126,14 +127,11 @@ class RegisFormAllCourses extends React.Component {
         event.preventDefault();
 
         const data = new FormData(event.target);
-        // const timestampGen = new Date().toString();
-        // this.timestamp = this.setState({ timestamp: new Date() });
         console.log("course ->", this.state.courseName);
         console.log("userId -> ", this.state.userId);
         console.log("name -> ", this.state.name);
         console.log("tel -> ", this.state.tel);
         console.log("email -> ", this.state.email);
-        // console.log("timestamp -> ", timestampGen);
         console.log(this.state);
 
         liff.sendMessages([
@@ -181,7 +179,7 @@ class RegisFormAllCourses extends React.Component {
         const { courses } = this.state;
 
         return (
-            <div type="hidden">
+            <div>
                 <BannerTop message="Register" />
                 {/* <SuccessPage courseName={this.state.courseName} /> */}
                 <div className="container mw-25">

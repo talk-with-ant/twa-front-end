@@ -9,7 +9,7 @@ import SuccessPage from "../components/Success";
 //import RegisterByCourse from "../components/RegisFormByCourse";
 import Success from "../components/Success";
 import TestLine from "../components/TestLine"
-
+import OwnerAddCourse from "../components/Owner-AddCourse";
 
 class Routing extends React.Component {
 
@@ -17,13 +17,13 @@ class Routing extends React.Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/courses" ><RegisFormAllCourses /></Route>
+                    <Route exact path="/enrollcourse"><RegisFormAllCourses /></Route>
                     <Route exact path="/success/:courseName" ><SuccessPage /></Route>
-                    <Route exact path="/line" component={TestLine} />
+                    <Route exact path="/addcourse"><OwnerAddCourse /></Route>
 
                 </Switch>
             </BrowserRouter>
         );
     }
 }
-export default withRouter(Routing)
+export default Routing
