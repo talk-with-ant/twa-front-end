@@ -14,7 +14,7 @@ class BannerTop extends React.Component {
 
                     height: "60px",
                     backgroundColor: "#FF783E",
-                    fontFamily: "Roboto"
+                    // fontFamily: "Roboto"
                 }}>
                 <label className="text-center"
                     style={{

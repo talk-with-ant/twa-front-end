@@ -47,7 +47,7 @@ class RegisFormAllCourses extends React.Component {
         // Using a Promise object
 
         /* VV Hide this when dev for conveinience */
-        liff.init({ liffId: "1654421462-oal2PRL7" })
+        liff.init({ liffId: "1654378227-QwAzgAb0" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();

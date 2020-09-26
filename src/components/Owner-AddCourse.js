@@ -5,6 +5,8 @@ import BannerTop from './BannerTop';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import './custom.css';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 class OwnerAddCourse extends React.Component {
     constructor(props) {
@@ -15,7 +17,7 @@ class OwnerAddCourse extends React.Component {
             name: '',
             date: '',
             place: '',
-            userId: ''
+            curTime: new Date().toLocaleString(),
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
@@ -27,7 +29,7 @@ class OwnerAddCourse extends React.Component {
     }
 
     componentDidMount() {
-        liff.init({ liffId: "1654421462-oal2PRL7" })
+        liff.init({ liffId: "1654378227-QwAzgAb0" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();
@@ -53,6 +55,8 @@ class OwnerAddCourse extends React.Component {
                 console.log(error);
             })
             ;
+
+
     }
 
     closeApp(event) {
@@ -66,19 +70,7 @@ class OwnerAddCourse extends React.Component {
 
     }
 
-    getDateFormat() {
 
-        this.setState({
-            time:
-                Intl.DateTimeFormat("en-GB", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit"
-                }).format(this.state.time)
-
-        })
-
-    }
 
     getProfile() {
         liff.getProfile().then(dataInfo => {
@@ -108,7 +100,6 @@ class OwnerAddCourse extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
-        this.getDateFormat();
         console.log("ownerId ->", this.state.ownerId);
         console.log("name ->", this.state.name);
         console.log("date ->", this.state.date);
@@ -148,13 +139,13 @@ class OwnerAddCourse extends React.Component {
     }
 
     render() {
+        const today = new Date('now');
         return (
             <div><BannerTop message="Add Course" />
                 <div className="container mw-25">
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                         <div className="form-group">
                             <div type="hidden">
-                                {/* {(this.state.ownerId && this.state.ownerId != '') ? <p>LineID: {this.state.ownerId}</p> : null} */}
                                 <input required
                                     name="ownerId"
                                     type="hidden"
@@ -173,15 +164,20 @@ class OwnerAddCourse extends React.Component {
                                     onChange={this.handlerChange}
                                 />
                             </div>
-                            <div className="text-left">
+                            <div className="text-left" >
                                 <label>date</label>
                                 <input required
                                     className="form-control"
                                     name="date"
                                     type="date"
+                                    placeholder="mm/dd/yyyy"
                                     id="courseDate"
+                                    min={this.state.curTime}
                                     onChange={this.handlerChange}
                                 />
+                                {/* <label>
+                                    {this.state.date}
+                                </label> */}
                             </div>
                             <div className="text-left">
                                 <label>place</label>
