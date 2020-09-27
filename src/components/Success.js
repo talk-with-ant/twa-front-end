@@ -21,7 +21,7 @@ class SuccessPage extends React.Component {
 
 
     render() {
-        console.log(this.props.match.params.courseName)
+        // console.log(this.props.match.params.courseName)
         return (
             <div>
                 <BannerTop message="Success" />

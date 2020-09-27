@@ -29,7 +29,7 @@ class OwnerAddCourse extends React.Component {
     }
 
     componentDidMount() {
-        liff.init({ liffId: "1654378227-QwAzgAb0" })
+        liff.init({ liffId: "1654987039-3lvl9O4p" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();
