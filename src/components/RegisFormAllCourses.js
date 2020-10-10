@@ -15,6 +15,7 @@ import liff from "@line/liff";
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import BannerTop from './BannerTop';
 import SuccessPage from './Success';
+import { isConstTypeReference } from 'typescript';
 // import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 
 
@@ -31,7 +32,8 @@ class RegisFormAllCourses extends React.Component {
             name: '',
             tel: '',
             email: '',
-            courseName: ''
+            courseName: '',
+            courseId: ''
 
 
         };
@@ -44,6 +46,20 @@ class RegisFormAllCourses extends React.Component {
 
 
     componentDidMount() {
+        // const medium = 'https://medium.com/linedevth/';
+        const queryString = decodeURIComponent(window.location.search);
+        // .replace("?liff.state=", "");
+        const params = new URLSearchParams(queryString);
+        const id = params.get('courseId');
+        this.setState({ courseId: id });
+        console.log(this.state.courseId)
+
+        // if (id != null && id != '') {
+        //     window.location.assign(medium + id);
+        //     console.log(id);
+        // } else {
+        //     window.location.assign("https://developers.line.biz");
+        // }
         // Using a Promise object
 
         /* VV Hide this when dev for conveinience */
@@ -73,12 +89,13 @@ class RegisFormAllCourses extends React.Component {
             .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
             .then((res) => {
                 this.setState({ courses: res.data });
+
             })
             .catch((error) => {
                 console.log(error);
             })
             ;
-
+        // console.log('courseId', this.state.courseId);
     }
 
 
@@ -92,6 +109,8 @@ class RegisFormAllCourses extends React.Component {
         }]).then(() => {
             liff.closeWindow();
         });
+
+
 
     }
 
@@ -149,7 +168,7 @@ class RegisFormAllCourses extends React.Component {
             });
 
         axios
-            .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/users", {
+            .post(`https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/${this.state.courseId}/users`, {
                 courseName: this.state.courseName,
                 userId: this.state.userId,
                 name: this.state.name,
@@ -177,13 +196,27 @@ class RegisFormAllCourses extends React.Component {
 
     render() {
         const { courses } = this.state;
-
+        const courseId = this.state.courseId;
         return (
             <div>
                 <BannerTop message="Register" />
                 {/* <SuccessPage courseName={this.state.courseName} /> */}
                 <div className="container mw-25">
+                    {courses}
+                    {courses.map((course) => {
+                        if (courses.id === courseId) {
+                            {
 
+                            }
+
+                            // this.setState({ courseName: course.data.courseName })
+
+                            // <div><h2>{course.id}</h2> <h2>{course.data.courseName}</h2> 
+                            // </div>
+                        }
+                    })}
+
+                    {console.log(this.state.courseName)}
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                         <div className="form-group">
                             <div className="text-left">
@@ -258,7 +291,8 @@ class RegisFormAllCourses extends React.Component {
                                 ))}
                             </select>
 
-                            {/* แก้ select ตาม css */}
+
+                            {/* /* แก้ select ตาม css*/}
 
                         </div>
                         <div className="form-check mb-4 text-left">
