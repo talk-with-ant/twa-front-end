@@ -168,7 +168,7 @@ class RegisFormAllCourses extends React.Component {
             });
 
         axios
-            .post(`https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/${this.state.courseId}/users`, {
+            .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/courseId/users", {
                 courseName: this.state.courseName,
                 userId: this.state.userId,
                 name: this.state.name,
@@ -202,7 +202,7 @@ class RegisFormAllCourses extends React.Component {
                 <BannerTop message="Register" />
                 {/* <SuccessPage courseName={this.state.courseName} /> */}
                 <div className="container mw-25">
-                    {courses}
+                    {/* {courses}
                     {courses.map((course) => {
                         if (courses.id === courseId) {
                             {
@@ -214,10 +214,30 @@ class RegisFormAllCourses extends React.Component {
                             // <div><h2>{course.id}</h2> <h2>{course.data.courseName}</h2> 
                             // </div>
                         }
-                    })}
+                    })} */}
 
                     {console.log(this.state.courseName)}
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
+                        <div className="form-group">
+                            <div className="text-left">
+                                <label >Course</label>
+                            </div>
+
+                            <select
+                                className="custom-select  mb-3"
+                                name="courseName" required
+                                onChange={this.handlerChange}>
+                                <option value="" selected disabled>Please select</option>,
+
+                                    {courses.map((course) => (
+                                    <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
+                                ))}
+                            </select>
+
+
+                            {/* /* แก้ select ตาม css*/}
+
+                        </div>
                         <div className="form-group">
                             <div className="text-left">
                                 <label >Name</label>
@@ -275,26 +295,7 @@ class RegisFormAllCourses extends React.Component {
                             />
                         </div>
 
-                        <div className="form-group">
-                            <div className="text-left">
-                                <label >Course</label>
-                            </div>
 
-                            <select
-                                className="custom-select  mb-3"
-                                name="courseName" required
-                                onChange={this.handlerChange}>
-                                <option value="" selected disabled>Please select</option>,
-
-                                    {courses.map((course) => (
-                                    <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
-                                ))}
-                            </select>
-
-
-                            {/* /* แก้ select ตาม css*/}
-
-                        </div>
                         <div className="form-check mb-4 text-left">
                             <input
                                 type="checkbox"
@@ -305,8 +306,9 @@ class RegisFormAllCourses extends React.Component {
                             />
                             <label className="form-check-label">
                                 Accept term and conditions
-                                </label>
+                            </label>
                         </div>
+                      
 
                         <div>
                             <input type="submit" value="Submit" />
