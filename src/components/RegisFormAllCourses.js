@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect, setIsOpen, isOpen } from 'react';
 import ReactDOM from 'react-dom'
 import {
     withRouter,
@@ -16,10 +16,7 @@ import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import BannerTop from './BannerTop';
 import SuccessPage from './Success';
 import { isConstTypeReference } from 'typescript';
-import { Modal } from 'react-bootstrap';
 // import { Button, Container, Row, Col, Form } from 'react-bootstrap';
-
-
 
 
 class RegisFormAllCourses extends React.Component {
@@ -35,16 +32,12 @@ class RegisFormAllCourses extends React.Component {
             email: '',
             courseName: '',
             courseId: ''
-
-
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
         this.handlerChange = this.handlerChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
-
 
     componentDidMount() {
         // const medium = 'https://medium.com/linedevth/';
@@ -195,7 +188,9 @@ class RegisFormAllCourses extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+
     render() {
+
         const { courses } = this.state;
         const courseId = this.state.courseId;
         return (
@@ -216,7 +211,6 @@ class RegisFormAllCourses extends React.Component {
                             // </div>
                         }
                     })} */}
-
                     {console.log(this.state.courseName)}
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                         <div className="form-group">
@@ -239,6 +233,7 @@ class RegisFormAllCourses extends React.Component {
                             {/* /* แก้ select ตาม css*/}
 
                         </div>
+
                         <div className="form-group">
                             <div className="text-left">
                                 <label >Name</label>
@@ -309,7 +304,7 @@ class RegisFormAllCourses extends React.Component {
                                 Accept term and conditions
                             </label>
                         </div>
-                      
+
 
                         <div>
                             <input type="submit" value="Submit" />
