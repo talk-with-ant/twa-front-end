@@ -39,6 +39,12 @@ class RegisFormAllCourses extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // mounted() {
+    //     if (this.$route.query.courseId) {
+    //         this.$router.push(`/enrollcourse/${this.$route.query.courseId}`);
+    //     }
+    // }
+
     componentDidMount() {
         // const medium = 'https://medium.com/linedevth/';
         const queryString = decodeURIComponent(window.location.search);
@@ -219,12 +225,12 @@ class RegisFormAllCourses extends React.Component {
                             </div>
 
                             <select
-                                className="custom-select  mb-3"
+                                className="custom-select "
                                 name="courseName" required
                                 onChange={this.handlerChange}>
-                                <option value="" selected disabled>Please select</option>,
+                                <option value="" selected disabled >Please Select </option>,
 
-                                    {courses.map((course) => (
+                                {courses.map((course) => (
                                     <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
                                 ))}
                             </select>

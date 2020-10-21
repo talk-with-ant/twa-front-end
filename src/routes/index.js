@@ -8,7 +8,6 @@ import SuccessPage from "../components/Success";
 
 //import RegisterByCourse from "../components/RegisFormByCourse";
 import Success from "../components/Success";
-import TestLine from "../components/TestLine"
 import OwnerAddCourse from "../components/Owner-AddCourse";
 // import TestParam from "../components/testParam"
 
@@ -23,7 +22,7 @@ class Routing extends React.Component {
                     <Route exact path="/enrollcourse"><RegisFormAllCourses /></Route>
                     <Route exact path="/success/:courseName" ><SuccessPage /></Route>
                     <Route exact path="/addcourse"><OwnerAddCourse /></Route>
-                    {/* <Route exact path="/testparam"><TestParam /></Route> */}
+
 
                 </Switch>
             </BrowserRouter>
