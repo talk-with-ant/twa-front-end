@@ -16,6 +16,7 @@ import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import BannerTop from './BannerTop';
 import SuccessPage from './Success';
 import { isConstTypeReference } from 'typescript';
+import { Modal } from 'react-bootstrap';
 // import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 
 
