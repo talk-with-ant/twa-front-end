@@ -20,7 +20,7 @@ class Routing extends React.Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/enrollcourse"><RegisFormAllCourses /></Route>
-                    <Route exact path="/success/:courseName" ><SuccessPage /></Route>
+                    <Route exact path="/success" ><SuccessPage /></Route>
                     <Route exact path="/addcourse"><OwnerAddCourse /></Route>
 
 

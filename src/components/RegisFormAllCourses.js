@@ -168,8 +168,7 @@ class RegisFormAllCourses extends React.Component {
             });
 
         axios
-            .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/courseId/users", {
-                courseName: this.state.courseName,
+            .post(`https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/${this.state.courseId}/users`, {
                 userId: this.state.userId,
                 name: this.state.name,
                 tel: this.state.tel,
@@ -185,7 +184,8 @@ class RegisFormAllCourses extends React.Component {
 
 
 
-        this.props.history.push("/success/" + this.state.courseName)
+        // this.props.history.push("/success/" + this.state.courseName)
+        this.props.history.push("/success/")
 
 
     }
@@ -197,29 +197,25 @@ class RegisFormAllCourses extends React.Component {
 
     render() {
 
-        const { courses } = this.state;
-        const courseId = this.state.courseId;
+        const { courses, courseId } = this.state;
+        // const courseId = this.state.courseId;
+        let courseName;
+        courses.map((course) => {
+            if (courseId === course.id) {
+
+                courseName = <h1>{course.data.courseName}</h1>
+
+            }
+        })
         return (
             <div>
                 <BannerTop message="Register" />
                 {/* <SuccessPage courseName={this.state.courseName} /> */}
                 <div className="container mw-25">
-                    {/* {courses}
-                    {courses.map((course) => {
-                        if (courses.id === courseId) {
-                            {
-
-                            }
-
-                            // this.setState({ courseName: course.data.courseName })
-
-                            // <div><h2>{course.id}</h2> <h2>{course.data.courseName}</h2> 
-                            // </div>
-                        }
-                    })} */}
                     {console.log(this.state.courseName)}
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
-                        <div className="form-group">
+
+                        {/* <div className="form-group" id="COURSE">
                             <div className="text-left">
                                 <label >Course</label>
                             </div>
@@ -236,10 +232,12 @@ class RegisFormAllCourses extends React.Component {
                             </select>
 
 
-                            {/* /* แก้ select ตาม css*/}
+                            //แก้ select ตาม css
 
+                        </div> */}
+                        <div className="form-group" id="COURSE_NAME">
+                            {courseName}
                         </div>
-
                         <div className="form-group">
                             <div className="text-left">
                                 <label >Name</label>
