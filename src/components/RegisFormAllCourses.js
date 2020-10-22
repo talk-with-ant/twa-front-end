@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect, setIsOpen, isOpen } from 'react';
 import ReactDOM from 'react-dom'
 import {
     withRouter,
@@ -19,8 +19,6 @@ import { isConstTypeReference } from 'typescript';
 // import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 
 
-
-
 class RegisFormAllCourses extends React.Component {
 
     constructor(props) {
@@ -34,16 +32,18 @@ class RegisFormAllCourses extends React.Component {
             email: '',
             courseName: '',
             courseId: ''
-
-
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
         this.handlerChange = this.handlerChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
+    // mounted() {
+    //     if (this.$route.query.courseId) {
+    //         this.$router.push(`/enrollcourse/${this.$route.query.courseId}`);
+    //     }
+    // }
 
     componentDidMount() {
         // const medium = 'https://medium.com/linedevth/';
@@ -168,8 +168,7 @@ class RegisFormAllCourses extends React.Component {
             });
 
         axios
-            .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/courseId/users", {
-                courseName: this.state.courseName,
+            .post(`https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/${this.state.courseId}/users`, {
                 userId: this.state.userId,
                 name: this.state.name,
                 tel: this.state.tel,
@@ -185,7 +184,8 @@ class RegisFormAllCourses extends React.Component {
 
 
 
-        this.props.history.push("/success/" + this.state.courseName)
+        // this.props.history.push("/success/" + this.state.courseName)
+        this.props.history.push("/success/")
 
 
     }
@@ -194,49 +194,49 @@ class RegisFormAllCourses extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+
     render() {
-        const { courses } = this.state;
-        const courseId = this.state.courseId;
+
+        const { courses, courseId } = this.state;
+        // const courseId = this.state.courseId;
+        let courseName;
+        courses.map((course) => {
+            if (courseId === course.id) {
+
+                courseName = <h1>{course.data.courseName}</h1>
+
+            }
+        })
         return (
             <div>
                 <BannerTop message="Register" />
                 {/* <SuccessPage courseName={this.state.courseName} /> */}
                 <div className="container mw-25">
-                    {/* {courses}
-                    {courses.map((course) => {
-                        if (courses.id === courseId) {
-                            {
-
-                            }
-
-                            // this.setState({ courseName: course.data.courseName })
-
-                            // <div><h2>{course.id}</h2> <h2>{course.data.courseName}</h2> 
-                            // </div>
-                        }
-                    })} */}
-
                     {console.log(this.state.courseName)}
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
-                        <div className="form-group">
+
+                        {/* <div className="form-group" id="COURSE">
                             <div className="text-left">
                                 <label >Course</label>
                             </div>
 
                             <select
-                                className="custom-select  mb-3"
+                                className="custom-select "
                                 name="courseName" required
                                 onChange={this.handlerChange}>
-                                <option value="" selected disabled>Please select</option>,
+                                <option value="" selected disabled >Please Select </option>,
 
-                                    {courses.map((course) => (
+                                {courses.map((course) => (
                                     <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
                                 ))}
                             </select>
 
 
-                            {/* /* แก้ select ตาม css*/}
+                            //แก้ select ตาม css
 
+                        </div> */}
+                        <div className="form-group" id="COURSE_NAME">
+                            {courseName}
                         </div>
                         <div className="form-group">
                             <div className="text-left">
@@ -308,7 +308,7 @@ class RegisFormAllCourses extends React.Component {
                                 Accept term and conditions
                             </label>
                         </div>
-                      
+
 
                         <div>
                             <input type="submit" value="Submit" />
