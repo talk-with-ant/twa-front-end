@@ -203,10 +203,11 @@ class RegisFormAllCourses extends React.Component {
         courses.map((course) => {
             if (courseId === course.id) {
 
-                courseName = <h1>{course.data.courseName}</h1>
+                courseName = <h1 name="courseName" value={course.data.courseName} onChange={this.handlerChange}>{course.data.courseName}</h1>
 
             }
         })
+        // this.setState({ courseName: courseName })
         return (
             <div>
                 <BannerTop message="Register" />
