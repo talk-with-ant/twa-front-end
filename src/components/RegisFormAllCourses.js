@@ -95,7 +95,6 @@ class RegisFormAllCourses extends React.Component {
                 console.log(error);
             })
             ;
-        // console.log('courseId', this.state.courseId);
     }
 
 
@@ -140,13 +139,12 @@ class RegisFormAllCourses extends React.Component {
     }
 
 
-
     handleSubmit(event) {
 
         event.preventDefault();
 
         const data = new FormData(event.target);
-        console.log("course ->", this.state.courseName);
+        console.log("courseName ->", this.state.courses);
         console.log("userId -> ", this.state.userId);
         console.log("name -> ", this.state.name);
         console.log("tel -> ", this.state.tel);
@@ -182,10 +180,8 @@ class RegisFormAllCourses extends React.Component {
                 console.error(err)
             })
 
+        this.props.history.push("/success/" + this.state.courseName)
 
-
-        // this.props.history.push("/success/" + this.state.courseName)
-        this.props.history.push("/success/")
 
 
     }
@@ -194,27 +190,35 @@ class RegisFormAllCourses extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    // componentDidUpdate(prevCourseName, courseName) {
+    //     if (prevCourseName !== this.state.courseName) {
+    //         this.setState({ courseName: courseName })
+    //     }
+
+    // }
+
 
     render() {
 
         const { courses, courseId } = this.state;
-        // const courseId = this.state.courseId;
         let courseName;
-        courses.map((course) => {
-            if (courseId === course.id) {
+        // this.state.courseName = courseName.bind(this)
+        // courses.map((course) => {
+        //     if (courseId === course.id) {
 
-                courseName = <h1 name="courseName" value={course.data.courseName} onChange={this.handlerChange}>{course.data.courseName}</h1>
+        //         courseName = course.data.courseName
 
-            }
-        })
-        // this.setState({ courseName: courseName })
+        //     }
+        // })
         return (
             <div>
                 <BannerTop message="Register" />
                 {/* <SuccessPage courseName={this.state.courseName} /> */}
                 <div className="container mw-25">
-                    {console.log(this.state.courseName)}
+                    {/* {console.log(this.state.courseName)} */}
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
+
+
 
                         {/* <div className="form-group" id="COURSE">
                             <div className="text-left">
@@ -237,7 +241,17 @@ class RegisFormAllCourses extends React.Component {
 
                         </div> */}
                         <div className="form-group" id="COURSE_NAME">
-                            {courseName}
+
+
+                            {courses.map((course) => {
+                                if (courseId === course.id) {
+
+
+                                    courseName = course.data.courseName
+
+                                }
+                            })}
+                            <h1>{courseName}</h1>
                         </div>
                         <div className="form-group">
                             <div className="text-left">
