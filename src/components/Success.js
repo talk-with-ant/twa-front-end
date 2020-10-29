@@ -27,7 +27,7 @@ class SuccessPage extends React.Component {
                 <BannerTop message="Success" />
                 <div className="container mw-25">
                     <h1>Register Success !</h1>
-                        Thank you for enroll {this.props.match.params.queryCourseName} course
+                        Thank you for enroll {this.props.match.params.courseName} course
                     <div>
                         <input type="button" onClick={liff.closeWindow} value="Close" />
                     </div>

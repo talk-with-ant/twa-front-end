@@ -144,7 +144,7 @@ class RegisFormAllCourses extends React.Component {
         event.preventDefault();
 
         const data = new FormData(event.target);
-        console.log("courseName ->", this.state.courses);
+        console.log("courseName ->", this.state.courseName);
         console.log("userId -> ", this.state.userId);
         console.log("name -> ", this.state.name);
         console.log("tel -> ", this.state.tel);
@@ -245,10 +245,7 @@ class RegisFormAllCourses extends React.Component {
 
                             {courses.map((course) => {
                                 if (courseId === course.id) {
-
-
                                     courseName = course.data.courseName
-
                                 }
                             })}
                             <h1>{courseName}</h1>
@@ -311,7 +308,7 @@ class RegisFormAllCourses extends React.Component {
                         </div>
 
 
-                        <div className="form-check mb-4 text-left">
+                        {/* <div className="form-check mb-4 text-left">
                             <input
                                 type="checkbox"
                                 className="form-check-input"
@@ -322,7 +319,7 @@ class RegisFormAllCourses extends React.Component {
                             <label className="form-check-label">
                                 Accept term and conditions
                             </label>
-                        </div>
+                        </div> */}
 
 
                         <div>
