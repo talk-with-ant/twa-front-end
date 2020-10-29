@@ -90,11 +90,20 @@ class RegisFormAllCourses extends React.Component {
             .then((res) => {
                 this.setState({ courses: res.data });
 
+                res.data.map((course) => {
+                    if (id === course.id) {
+                        this.setState({ courseName: course.data.courseName })
+                    }
+                })
+
+
             })
             .catch((error) => {
                 console.log(error);
             })
             ;
+
+
     }
 
 
@@ -201,7 +210,7 @@ class RegisFormAllCourses extends React.Component {
     render() {
 
         const { courses, courseId } = this.state;
-        let courseName;
+        // let courseName;
         // this.state.courseName = courseName.bind(this)
         // courses.map((course) => {
         //     if (courseId === course.id) {
@@ -241,14 +250,7 @@ class RegisFormAllCourses extends React.Component {
 
                         </div> */}
                         <div className="form-group" id="COURSE_NAME">
-
-
-                            {courses.map((course) => {
-                                if (courseId === course.id) {
-                                    courseName = course.data.courseName
-                                }
-                            })}
-                            <h1>{courseName}</h1>
+                            <h1>{this.state.courseName}</h1>
                         </div>
                         <div className="form-group">
                             <div className="text-left">
