@@ -22,8 +22,6 @@ class Routing extends React.Component {
                     <Route exact path="/enrollcourse"><RegisFormAllCourses /></Route>
                     <Route exact path="/success/:courseName" ><SuccessPage /></Route>
                     <Route exact path="/addcourse"><OwnerAddCourse /></Route>
-
-
                 </Switch>
             </BrowserRouter>
         );

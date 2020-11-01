@@ -13,16 +13,24 @@ class OwnerAddCourse extends React.Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
+            courseName: '',
             ownerId: '',
             name: '',
             date: '',
-            place: '',
+            location: '',
+            amount: '',
+            description: '',
+            trainerName: '',
+            maxPar: '',
+            value: '',
             curTime: new Date().toLocaleString(),
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
         this.handlerChange = this.handlerChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.numChange = this.numChange.bind(this);
+        this.costChange = this.costChange.bind(this);
     }
     handlerChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
@@ -109,7 +117,7 @@ class OwnerAddCourse extends React.Component {
         liff.sendMessages([
             {
                 type: 'text',
-                text: "สร้าง อบรม " + this.state.name + " สำเร็จ"
+                text: "สร้าง อบรม " + this.state.courseName + " สำเร็จ"
             }
         ])
             .then(() => {
@@ -122,10 +130,14 @@ class OwnerAddCourse extends React.Component {
 
         axios
             .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses", {
+                courseName: this.state.courseName,
                 ownerId: this.state.ownerId,
-                name: this.state.name,
                 date: this.state.date,
-                place: this.state.place
+                location: this.state.location,
+                amount: this.state.amount,
+                description: this.state.description,
+                trainerName: this.state.trainerName,
+                maxPar: this.state.maxPar
             })
             .then(response => {
                 console.log("response: ", response)
@@ -138,55 +150,140 @@ class OwnerAddCourse extends React.Component {
         liff.closeWindow();
     }
 
+    handlerChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+    numChange = (e) => {
+        //replace non-digits with blank
+        const value = e.target.value.replace(/[^\d]/, '');
+
+        if (parseInt(value) !== 0) {
+            this.setState({ value });
+        }
+    }
+
+    costChange = (e) => {
+        //replace non-digits with blank
+        const value = e.target.value.replace(/[^\d]/, '');
+
+        if (parseInt(value) >= 0) {
+            this.setState({ value });
+        }
+    }
+
     render() {
         const today = new Date('now');
         return (
             <div><BannerTop message="Add Course" />
                 <div className="container mw-25">
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
-                        <div className="form-group">
+                        <div className="form-group" id="COURSE_NAME">
+                            <div className="form-group">
+                                <div className="text-left">
+                                    <label >Course Name</label>
+                                </div>
+                                <input
+                                    name="courseName"
+                                    type="text"
+                                    className="form-control"
+                                    id="courseName"
+                                    placeholder="Enter course name"
+                                    required
+                                    onChange={this.handlerChange}
+                                />
+                            </div>
                             <div type="hidden">
+                                {/* {(this.state.userId && this.state.userId != '')?<p>LineID: {this.state.userId}</p>:null} */}
                                 <input required
                                     name="ownerId"
                                     type="hidden"
+                                    onLoad
                                     className="form-control"
                                     value={this.state.ownerId}
                                 />
                             </div>
-                            <div className="text-left">
-                                <label>Course Name</label>
-                                <input required
-                                    className="form-control"
-                                    name="name"
-                                    type="text"
-                                    id="courseName"
-                                    placeholder="Enter course name"
-                                    onChange={this.handlerChange}
-                                />
-                            </div>
-                            <div className="text-left" >
-                                <label>date</label>
-                                <input required
-                                    className="form-control"
+                            <div className="form-group">
+                                <div className="text-left">
+                                    <label >Date</label>
+                                </div>
+                                <input
                                     name="date"
                                     type="date"
-                                    placeholder="mm/dd/yyyy"
-                                    id="courseDate"
-                                    min={this.state.curTime}
+                                    className="form-control"
+                                    id="date"
+                                    required
                                     onChange={this.handlerChange}
                                 />
-                                {/* <label>
-                                    {this.state.date}
-                                </label> */}
                             </div>
-                            <div className="text-left">
-                                <label>place</label>
-                                <input required
-                                    className="form-control"
-                                    name="place"
+                            <div className="form-group">
+                                <div className="text-left">
+                                    <label >Location</label>
+                                </div>
+                                <input
+                                    name="location"
                                     type="text"
-                                    id="coursePlace"
-                                    placeholder="Enter course place"
+                                    className="form-control"
+                                    id="location"
+                                    placeholder="Enter location"
+                                    required
+                                    onChange={this.handlerChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <div className="text-left">
+                                    <label >Cost</label>
+                                </div>
+                                <input
+                                    name="amount"
+                                    type="number"
+                                    className="form-control"
+                                    id="amount"
+                                    placeholder="Free?"
+                                    value="0"
+                                    required
+                                    onChange={this.costChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <div className="text-left">
+                                    <label >Description</label>
+                                </div>
+                                <input
+                                    name="description"
+                                    type="textarea"
+                                    className="form-control"
+                                    id="description"
+                                    placeholder="Enter description"
+                                    required
+                                    onChange={this.handlerChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <div className="text-left">
+                                    <label >Trainer Name</label>
+                                </div>
+                                <input
+                                    name="trainerName"
+                                    type="text"
+                                    className="form-control"
+                                    id="trainerName"
+                                    placeholder="Enter trainer name"
+                                    required
+                                    onChange={this.handlerChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <div className="text-left">
+                                    <label >Max Participants</label>
+                                </div>
+                                <input
+                                    name="maxPar"
+                                    type="number"
+                                    className="form-control"
+                                    id="maxPar"
+                                    placeholder="Enter maxinum participants"
+                                    required
                                     onChange={this.handlerChange}
                                 />
                             </div>
