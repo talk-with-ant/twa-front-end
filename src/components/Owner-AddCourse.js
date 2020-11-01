@@ -15,7 +15,6 @@ class OwnerAddCourse extends React.Component {
         this.state = {
             courseName: '',
             ownerId: '',
-            name: '',
             date: '',
             location: '',
             amount: '',
@@ -108,11 +107,6 @@ class OwnerAddCourse extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
-        console.log("ownerId ->", this.state.ownerId);
-        console.log("name ->", this.state.name);
-        console.log("date ->", this.state.date);
-        console.log("place ->", this.state.place);
-
         console.log(this.state)
         liff.sendMessages([
             {
@@ -130,12 +124,12 @@ class OwnerAddCourse extends React.Component {
 
         axios
             .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses", {
-                courseName: this.state.courseName,
                 ownerId: this.state.ownerId,
+                courseName: this.state.courseName,
                 date: this.state.date,
-                location: this.state.location,
                 amount: this.state.amount,
                 description: this.state.description,
+                location: this.state.location,
                 trainerName: this.state.trainerName,
                 maxPar: this.state.maxPar
             })
@@ -147,7 +141,7 @@ class OwnerAddCourse extends React.Component {
                 console.error(err)
             })
 
-        liff.closeWindow();
+        this.props.history.push("/success/" + this.state.courseName)
     }
 
     handlerChange = (e) => {
@@ -232,7 +226,7 @@ class OwnerAddCourse extends React.Component {
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label >Cost</label>
+                                    <label >Cost (THB)</label>
                                 </div>
                                 <input
                                     name="amount"
