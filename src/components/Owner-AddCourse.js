@@ -114,6 +114,15 @@ class OwnerAddCourse extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
+    data.append("img", this.state.file);
+    data.append("courseName", this.state.courseName);
+    data.append("ownerId", this.state.ownerId);
+    data.append("date", this.state.date);
+    data.append("location", this.state.location);
+    data.append("amount", this.state.amount);
+    data.append("description", this.state.description);
+    data.append("trainerName", this.state.trainerName);
+    data.append("maxPar", this.state.maxPar);
     console.log(this.state);
     liff
       .sendMessages([
@@ -131,15 +140,7 @@ class OwnerAddCourse extends React.Component {
 
     axios
       .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses", {
-        ownerId: this.state.ownerId,
-        courseName: this.state.courseName,
-        date: this.state.date,
-        amount: this.state.amount,
-        description: this.state.description,
-        location: this.state.location,
-        trainerName: this.state.trainerName,
-        maxPar: this.state.maxPar,
-        img: this.state.file,
+        data,
       })
       .then((response) => {
         console.log("response: ", response);
