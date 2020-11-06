@@ -199,26 +199,11 @@ class RegisFormAllCourses extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    // componentDidUpdate(prevCourseName, courseName) {
-    //     if (prevCourseName !== this.state.courseName) {
-    //         this.setState({ courseName: courseName })
-    //     }
-
-    // }
-
 
     render() {
 
         const { courses, courseId } = this.state;
-        // let courseName;
-        // this.state.courseName = courseName.bind(this)
-        // courses.map((course) => {
-        //     if (courseId === course.id) {
 
-        //         courseName = course.data.courseName
-
-        //     }
-        // })
         return (
             <div>
                 <BannerTop message="Register" />
@@ -226,29 +211,6 @@ class RegisFormAllCourses extends React.Component {
                 <div className="container mw-25">
                     {/* {console.log(this.state.courseName)} */}
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
-
-
-
-                        {/* <div className="form-group" id="COURSE">
-                            <div className="text-left">
-                                <label >Course</label>
-                            </div>
-
-                            <select
-                                className="custom-select "
-                                name="courseName" required
-                                onChange={this.handlerChange}>
-                                <option value="" selected disabled >Please Select </option>,
-
-                                {courses.map((course) => (
-                                    <option value={course.data.courseName} key={course.id}>{course.data.courseName}</option>
-                                ))}
-                            </select>
-
-
-                            //แก้ select ตาม css
-
-                        </div> */}
                         <div className="form-group" id="COURSE_NAME">
                             <h1>{this.state.courseName}</h1>
                         </div>

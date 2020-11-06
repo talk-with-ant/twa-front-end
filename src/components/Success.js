@@ -4,6 +4,7 @@ import RegisFormAllCourses from './RegisFormAllCourses';
 import liff from "@line/liff";
 import './custom.css';
 import BannerTop from './BannerTop';
+import Modal from 'react-modal'
 import { withRouter } from "react-router-dom"
 
 class SuccessPage extends React.Component {
@@ -19,9 +20,28 @@ class SuccessPage extends React.Component {
     //     });
     // }
 
+    constructor() {
+        super();
+        this.state = {
+            showModal: false
+        };
+
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+    }
+
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
+
 
     render() {
         // console.log(this.props.match.params.courseName)
+
         return (
             <div>
                 <BannerTop message="Success" />
@@ -30,12 +50,32 @@ class SuccessPage extends React.Component {
                         Thank you for enroll {this.props.match.params.courseName} course
                     <div>
                         <input type="button" onClick={liff.closeWindow} value="Close" />
+                        <input type="text"></input>
+                    </div>
+                    {/* test Modal */}
+                    <div>
+                        <a class="text-decoration-none" onClick={this.handleOpenModal}>Trigger Modal</a>
+                        <Modal
+                            isOpen={this.state.showModal}
+                            contentLabel="Minimal Modal Example"
+                            style={{ top: "80px" }}
+                        >
+                            <div>
+                                test test test TERM HERE
+                    </div>
+
+                            <div>
+                                <input type="button" onClick={this.handleCloseModal} value="Close Modal" />
+                            </div>
+
+                        </Modal>
                     </div>
                 </div>
 
+
+
+
             </div>
-
-
 
         )
     }
