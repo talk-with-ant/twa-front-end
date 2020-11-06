@@ -6,6 +6,7 @@ import './custom.css';
 import BannerTop from './BannerTop';
 import Modal from 'react-modal'
 import { withRouter } from "react-router-dom"
+import { red } from '@material-ui/core/colors';
 
 class SuccessPage extends React.Component {
 
@@ -20,23 +21,23 @@ class SuccessPage extends React.Component {
     //     });
     // }
 
-    constructor() {
-        super();
-        this.state = {
-            showModal: false
-        };
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         showModal: false
+    //     };
 
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
-    }
+    //     this.handleOpenModal = this.handleOpenModal.bind(this);
+    //     this.handleCloseModal = this.handleCloseModal.bind(this);
+    // }
 
-    handleOpenModal() {
-        this.setState({ showModal: true });
-    }
+    // handleOpenModal() {
+    //     this.setState({ showModal: true });
+    // }
 
-    handleCloseModal() {
-        this.setState({ showModal: false });
-    }
+    // handleCloseModal() {
+    //     this.setState({ showModal: false });
+    // }
 
 
     render() {
@@ -50,18 +51,29 @@ class SuccessPage extends React.Component {
                         Thank you for enroll {this.props.match.params.courseName} course
                     <div>
                         <input type="button" onClick={liff.closeWindow} value="Close" />
-                        <input type="text"></input>
+
                     </div>
                     {/* test Modal */}
-                    <div>
+                    {/* <div>
                         <a class="text-decoration-none" onClick={this.handleOpenModal}>Trigger Modal</a>
+
                         <Modal
                             isOpen={this.state.showModal}
                             contentLabel="Minimal Modal Example"
-                            style={{ top: "80px" }}
+                            style={{
+                                overlay: {
+                                    backgroundColor: "white"
+                                },
+                                content: {
+                                    color: 'lightsteelblue'
+                                }
+                            }}
+                            className="Modal container mw-25 border rounded"
                         >
                             <div>
-                                test test test TERM HERE
+                                <h3 class="text-center">Terms here</h3>
+                                test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE
+
                     </div>
 
                             <div>
@@ -69,7 +81,8 @@ class SuccessPage extends React.Component {
                             </div>
 
                         </Modal>
-                    </div>
+
+                    </div> */}
                 </div>
 
 

@@ -55,4 +55,20 @@
     max-width: 516px;
     margin-top: 1rem;
   }
+
   
+  .Modal {
+    /* position: absolute !important; */
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-top: 5rem;
+    max-width: 516px;
+    /* left: 40px;
+    right: 40px;
+    bottom: 40px; */
+  }
+
+  .fileName {
+    width: 100%;
+    max-width: 516px;
+  }

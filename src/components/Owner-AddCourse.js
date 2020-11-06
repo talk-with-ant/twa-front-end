@@ -7,6 +7,7 @@ import axios from "axios";
 import "./custom.css";
 import Moment from "react-moment";
 import "moment-timezone";
+import Modal from 'react-modal';
 
 class OwnerAddCourse extends React.Component {
     constructor(props) {
@@ -32,7 +33,20 @@ class OwnerAddCourse extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.numChange = this.numChange.bind(this);
         this.costChange = this.costChange.bind(this);
+
+        this.fileInput = React.createRef();
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
+
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
+
     handlerChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     };
@@ -150,6 +164,7 @@ class OwnerAddCourse extends React.Component {
                 console.error(err);
             });
 
+
         liff.closeWindow();
     }
 
@@ -185,7 +200,7 @@ class OwnerAddCourse extends React.Component {
                         <div className="form-group" id="COURSE_NAME">
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>Course Name</label>
+                                    <label>ชื่องานอบรม</label>
                                 </div>
                                 <input
                                     name="courseName"
@@ -210,7 +225,7 @@ class OwnerAddCourse extends React.Component {
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>Date</label>
+                                    <label>เวลาจัดงาน</label>
                                 </div>
                                 <input
                                     name="date"
@@ -223,7 +238,7 @@ class OwnerAddCourse extends React.Component {
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>Location</label>
+                                    <label>สถานที่</label>
                                 </div>
                                 <input
                                     name="location"
@@ -237,35 +252,35 @@ class OwnerAddCourse extends React.Component {
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>Cost (THB)</label>
+                                    <label>ค่าเข้างานอบรม</label>
                                 </div>
                                 <input
                                     name="amount"
                                     type="number"
                                     className="form-control"
                                     id="amount"
-                                    placeholder="Free?"
+                                    placeholder="(บาท)"
                                     required
                                     onChange={this.handlerChange}
                                 />
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>Description</label>
+                                    <label>คำอธิบายงานอบรม</label>
                                 </div>
-                                <input
+                                <textarea
                                     name="description"
                                     type="textarea"
                                     className="form-control"
                                     id="description"
-                                    placeholder="Enter description"
+                                    placeholder="อธิบาย.."
                                     required
                                     onChange={this.handlerChange}
                                 />
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>Trainer Name</label>
+                                    <label>ชื่อผู้อบรม</label>
                                 </div>
                                 <input
                                     name="trainerName"
@@ -279,7 +294,7 @@ class OwnerAddCourse extends React.Component {
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>Max Participants</label>
+                                    <label>จำนวนผู้เข้าร่วมสูงสุด</label>
                                 </div>
                                 <input
                                     name="maxPar"
@@ -291,18 +306,59 @@ class OwnerAddCourse extends React.Component {
                                     onChange={this.handlerChange}
                                 />
                             </div>
-                            <div className="form-group">
-                                <div className="text-left">
-                                    <label>Title Pic</label>
+                            <div className="form-group text-left">
+                                <div >
+                                    <label>รูปภาพปกงานอบรม</label>
                                 </div>
+                                <div >
+                                    <input
+                                        name="img"
+                                        type="file"
+                                        id="img"
+                                        required
+                                        onChange={this.handleImgChange}
+                                    />
+                                </div>
+
+                            </div>
+                            <div className="form-check mb-4 text-left">
                                 <input
-                                    name="img"
-                                    type="file"
-                                    // className="form-control"
-                                    id="img"
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    id="check"
+                                    name="check"
                                     required
-                                    onChange={this.handleImgChange}
                                 />
+                                <div>
+                                    <a class="text-decoration-none" onClick={this.handleOpenModal}
+                                    >ยืนยัน ข้อตกลงและเงื่อนไข</a>
+
+                                    <Modal
+                                        isOpen={this.state.showModal}
+                                        contentLabel="Minimal Modal Example"
+                                        style={{
+                                            overlay: {
+                                                backgroundColor: "white"
+                                            },
+                                            content: {
+                                                color: 'lightsteelblue'
+                                            }
+                                        }}
+                                        className="Modal container mw-25 border rounded"
+                                    >
+                                        <div>
+                                            <h3 class="text-center">Terms here</h3>
+                                test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE
+
+                                </div>
+
+                                        <div>
+                                            <input type="button" onClick={this.handleCloseModal} value="Close Modal" />
+                                        </div>
+
+                                    </Modal>
+
+                                </div>
                             </div>
                             <div>
                                 <input type="submit" value="Submit" />{" "}

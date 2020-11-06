@@ -16,6 +16,7 @@ import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import BannerTop from './BannerTop';
 import SuccessPage from './Success';
 import { isConstTypeReference } from 'typescript';
+import Modal from 'react-modal'
 // import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 
 
@@ -31,13 +32,26 @@ class RegisFormAllCourses extends React.Component {
             tel: '',
             email: '',
             courseName: '',
-            courseId: ''
+            courseId: '',
+            showModal: false
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
         this.handlerChange = this.handlerChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
+
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
+
 
     // mounted() {
     //     if (this.$route.query.courseId) {
@@ -216,7 +230,7 @@ class RegisFormAllCourses extends React.Component {
                         </div>
                         <div className="form-group">
                             <div className="text-left">
-                                <label >Name</label>
+                                <label >ชื่อ</label>
                             </div>
 
                             <input
@@ -241,7 +255,7 @@ class RegisFormAllCourses extends React.Component {
                         </div>
                         <div className="form-group">
                             <div className="text-left">
-                                <label >Email address </label>
+                                <label >อีเมล</label>
                             </div>
                             <input
                                 name="email"
@@ -255,7 +269,7 @@ class RegisFormAllCourses extends React.Component {
                         </div>
                         <div className="form-group">
                             <div className="text-left">
-                                <label>Phone</label>
+                                <label>เบอร์โทรศัพท์</label>
                             </div>
 
                             <input
@@ -272,7 +286,7 @@ class RegisFormAllCourses extends React.Component {
                         </div>
 
 
-                        {/* <div className="form-check mb-4 text-left">
+                        <div className="form-check mb-4 text-left">
                             <input
                                 type="checkbox"
                                 className="form-check-input"
@@ -280,10 +294,36 @@ class RegisFormAllCourses extends React.Component {
                                 name="check"
                                 required
                             />
-                            <label className="form-check-label">
-                                Accept term and conditions
-                            </label>
-                        </div> */}
+                            <div>
+                                <a class="text-decoration-none" onClick={this.handleOpenModal}>ยืนยัน ข้อตกลงและเงื่อนไข</a>
+
+                                <Modal
+                                    isOpen={this.state.showModal}
+                                    contentLabel="Minimal Modal Example"
+                                    style={{
+                                        overlay: {
+                                            backgroundColor: "white"
+                                        },
+                                        content: {
+                                            color: 'lightsteelblue'
+                                        }
+                                    }}
+                                    className="Modal container mw-25 border rounded"
+                                >
+                                    <div>
+                                        <h3 class="text-center">Terms here</h3>
+                                test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE
+
+                                </div>
+
+                                    <div>
+                                        <input type="button" onClick={this.handleCloseModal} value="Close Modal" />
+                                    </div>
+
+                                </Modal>
+
+                            </div>
+                        </div>
 
 
                         <div>

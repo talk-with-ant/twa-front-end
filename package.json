@@ -9,7 +9,7 @@
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.6",
     "axios": "^0.20.0",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^4.5.3",
     "dateformat": "^3.0.3",
     "gpg": "^0.6.0",
     "jquery": "^3.5.1",
