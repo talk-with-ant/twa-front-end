@@ -295,7 +295,7 @@ class RegisFormAllCourses extends React.Component {
                                 required
                             />
                             <div>
-                                <a class="text-decoration-none" onClick={this.handleOpenModal}>ยืนยัน ข้อตกลงและเงื่อนไข</a>
+                                <a class="text-decoration-none" onClick={this.handleOpenModal}>ยอมรับ ข้อตกลงและเงื่อนไข</a>
 
                                 <Modal
                                     isOpen={this.state.showModal}
@@ -311,8 +311,24 @@ class RegisFormAllCourses extends React.Component {
                                     className="Modal container mw-25 border rounded"
                                 >
                                     <div>
-                                        <h3 class="text-center">Terms here</h3>
-                                test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE test test test TERM HERE
+                                        <h3 class="text-center">ข้อตกลงและเงื่อนไข</h3>
+                                        Article 1. Definitions
+                                        <n />
+The terms used herein shall have the meanings ascribed to them in each of the following items:
+<n />
+(1) “LINE” means the “LINE” messenger service and any related services operated by the Company.
+<n />
+(2) “Services” means the “Module Channel” provided by the Company.
+<n />
+(3) “Customer” means any company or person that uses the Services wishing to place its app on the LINE Marketplace.
+<n />
+(4) “Users” means the end users who use the Services.
+<n />
+(5) “Module Channel” means “LINE Developers” which includes information, etc. necessary for the Customers to introduce the Services and other websites separately informed by the Company, as well as the information system for introducing the Services.
+<n />
+(6) “Development Environment” means the development environment provided by the Company which is necessary for the Customers to introduce the Services.
+<n />
+(7) “Operator” means the person who operates and manages the Module Channel designated by a Customer.
 
                                 </div>
 
