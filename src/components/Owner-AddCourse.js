@@ -5,7 +5,6 @@ import BannerTop from "./BannerTop";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import "./custom.css";
-import Moment from "react-moment";
 import "moment-timezone";
 import Modal from 'react-modal';
 
@@ -213,7 +212,6 @@ class OwnerAddCourse extends React.Component {
                                 />
                             </div>
                             <div type="hidden">
-                                {/* {(this.state.userId && this.state.userId != '')?<p>LineID: {this.state.userId}</p>:null} */}
                                 <input
                                     required
                                     name="ownerId"
@@ -348,25 +346,27 @@ class OwnerAddCourse extends React.Component {
                                     >
                                         <div>
                                             <h3 class="text-center">ข้อตกลงและเงื่อนไข</h3>
+                                            [Demo ข้อตกลงและเงื่อนไข]
+                                            <n />
                                             Article 1. Definitions
                                             <n />
-The terms used herein shall have the meanings ascribed to them in each of the following items:
-<n />
-(1) “LINE” means the “LINE” messenger service and any related services operated by the Company.
-<n />
-(2) “Services” means the “Module Channel” provided by the Company.
-<n />
-(3) “Customer” means any company or person that uses the Services wishing to place its app on the LINE Marketplace.
-<n />
-(4) “Users” means the end users who use the Services.
-<n />
-(5) “Module Channel” means “LINE Developers” which includes information, etc. necessary for the Customers to introduce the Services and other websites separately informed by the Company, as well as the information system for introducing the Services.
-<n />
-(6) “Development Environment” means the development environment provided by the Company which is necessary for the Customers to introduce the Services.
-<n />
-(7) “Operator” means the person who operates and manages the Module Channel designated by a Customer.
+                                            The terms used herein shall have the meanings ascribed to them in each of the following items:
+                                            <n />
+                                            (1) “LINE” means the “LINE” messenger service and any related services operated by the Company.
+                                            <n />
+                                            (2) “Services” means the “Module Channel” provided by the Company.
+                                            <n />
+                                            (3) “Customer” means any company or person that uses the Services wishing to place its app on the LINE Marketplace.
+                                            <n />
+                                            (4) “Users” means the end users who use the Services.
+                                            <n />
+                                            (5) “Module Channel” means “LINE Developers” which includes information, etc. necessary for the Customers to introduce the Services and other websites separately informed by the Company, as well as the information system for introducing the Services.
+                                            <n />
+                                            (6) “Development Environment” means the development environment provided by the Company which is necessary for the Customers to introduce the Services.
+                                            <n />
+                                            (7) “Operator” means the person who operates and manages the Module Channel designated by a Customer.
 
-                                </div>
+                                        </div>
 
                                         <div>
                                             <input type="button" onClick={this.handleCloseModal} value="Close Modal" />

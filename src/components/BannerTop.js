@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
-import { responsiveFontSizes } from '@material-ui/core';
 
 
 class BannerTop extends React.Component {
@@ -14,11 +13,9 @@ class BannerTop extends React.Component {
 
                     height: "60px",
                     backgroundColor: "#FF783E",
-                    // fontFamily: "Roboto"
                 }}>
                 <label className="text-center"
                     style={{
-                        // fontFamily: "Roboto",
                         fontSize: "20px",
                         margin: "auto",
                         color: "white"
