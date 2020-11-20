@@ -5,15 +5,15 @@ import './custom.css';
 import BannerTop from './BannerTop';
 import { withRouter } from "react-router-dom"
 
-class SuccessPage extends React.Component {
+class SuccessAddCoursePage extends React.Component {
     render() {
 
         return (
             <div>
                 <BannerTop message="สำเร็จ" />
                 <div className="container mw-25">
-                    <h2>สมัครงานอบรมสำเร็จ</h2>
-                        ขอบคุณที่เข้าร่วมสมัครงานอบรม {this.props.match.params.courseName}
+                    <h2>สร้างงานอบรมสำเร็จ</h2>
+                        คุณได้สร้างงานอบรม {this.props.match.params.courseName} เรียบร้อยแล้ว
                     <div>
                         <input type="button" onClick={liff.closeWindow} value="ปิด" />
 
@@ -29,4 +29,4 @@ class SuccessPage extends React.Component {
     }
 }
 
-export default withRouter(SuccessPage)
+export default withRouter(SuccessAddCoursePage)

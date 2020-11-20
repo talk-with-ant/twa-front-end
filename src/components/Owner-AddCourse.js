@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import "./custom.css";
 import "moment-timezone";
-import Modal from 'react-modal';
+import TermsModal from './TermsModal'
 
 class OwnerAddCourse extends React.Component {
     constructor(props) {
@@ -164,7 +164,7 @@ class OwnerAddCourse extends React.Component {
             });
 
 
-        liff.closeWindow();
+        this.props.history.push("/successAddCourse/" + this.state.courseName)
     }
 
     handlerChange = (e) => {
@@ -175,8 +175,11 @@ class OwnerAddCourse extends React.Component {
         //replace non-digits with blank
         const value = e.target.value.replace(/[^\d]/, "");
 
-        if (parseInt(value) !== 0) {
-            this.setState({ value });
+        if (parseInt(value) > 0) {
+            this.setState({ [e.target.name]: e.target.value });
+        } else {
+            window.alert("sometext");
+            return;
         }
     };
 
@@ -193,7 +196,7 @@ class OwnerAddCourse extends React.Component {
         const today = new Date("now");
         return (
             <div>
-                <BannerTop message="Add Course" />
+                <BannerTop message="สร้างงานอบรม" />
                 <div className="container mw-25">
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                         <div className="form-group" id="COURSE_NAME">
@@ -206,7 +209,7 @@ class OwnerAddCourse extends React.Component {
                                     type="text"
                                     className="form-control"
                                     id="courseName"
-                                    placeholder="Enter course name"
+                                    placeholder=""
                                     required
                                     onChange={this.handlerChange}
                                 />
@@ -243,7 +246,7 @@ class OwnerAddCourse extends React.Component {
                                     type="text"
                                     className="form-control"
                                     id="location"
-                                    placeholder="Enter location"
+                                    placeholder=""
                                     required
                                     onChange={this.handlerChange}
                                 />
@@ -257,21 +260,23 @@ class OwnerAddCourse extends React.Component {
                                     type="number"
                                     className="form-control"
                                     id="amount"
-                                    placeholder="(บาท)"
+                                    placeholder=""
                                     required
+                                    min="0"
+
                                     onChange={this.handlerChange}
                                 />
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>คำอธิบายงานอบรม</label>
+                                    <label>คำอธิบาย</label>
                                 </div>
                                 <textarea
                                     name="description"
                                     type="textarea"
                                     className="form-control"
                                     id="description"
-                                    placeholder="อธิบาย.."
+                                    placeholder=""
                                     required
                                     onChange={this.handlerChange}
                                 />
@@ -285,7 +290,7 @@ class OwnerAddCourse extends React.Component {
                                     type="text"
                                     className="form-control"
                                     id="trainerName"
-                                    placeholder="Enter trainer name"
+                                    placeholder=""
                                     required
                                     onChange={this.handlerChange}
                                 />
@@ -299,8 +304,10 @@ class OwnerAddCourse extends React.Component {
                                     type="number"
                                     className="form-control"
                                     id="maxPar"
-                                    placeholder="Enter maxinum participants"
+                                    placeholder=""
                                     required
+                                    min="1"
+                                    max="100"
                                     onChange={this.handlerChange}
                                 />
                             </div>
@@ -327,60 +334,13 @@ class OwnerAddCourse extends React.Component {
                                     name="check"
                                     required
                                 />
-                                <div>
-                                    <a class="text-decoration-none" onClick={this.handleOpenModal}
-                                    >ยอมรับ ข้อตกลงและเงื่อนไข</a>
-
-                                    <Modal
-                                        isOpen={this.state.showModal}
-                                        contentLabel="Minimal Modal Example"
-                                        style={{
-                                            overlay: {
-                                                backgroundColor: "white"
-                                            },
-                                            content: {
-                                                color: 'lightsteelblue'
-                                            }
-                                        }}
-                                        className="Modal container mw-25 border rounded"
-                                    >
-                                        <div>
-                                            <h3 class="text-center">ข้อตกลงและเงื่อนไข</h3>
-                                            [Demo ข้อตกลงและเงื่อนไข]
-                                            <n />
-                                            Article 1. Definitions
-                                            <n />
-                                            The terms used herein shall have the meanings ascribed to them in each of the following items:
-                                            <n />
-                                            (1) “LINE” means the “LINE” messenger service and any related services operated by the Company.
-                                            <n />
-                                            (2) “Services” means the “Module Channel” provided by the Company.
-                                            <n />
-                                            (3) “Customer” means any company or person that uses the Services wishing to place its app on the LINE Marketplace.
-                                            <n />
-                                            (4) “Users” means the end users who use the Services.
-                                            <n />
-                                            (5) “Module Channel” means “LINE Developers” which includes information, etc. necessary for the Customers to introduce the Services and other websites separately informed by the Company, as well as the information system for introducing the Services.
-                                            <n />
-                                            (6) “Development Environment” means the development environment provided by the Company which is necessary for the Customers to introduce the Services.
-                                            <n />
-                                            (7) “Operator” means the person who operates and manages the Module Channel designated by a Customer.
-
-                                        </div>
-
-                                        <div>
-                                            <input type="button" onClick={this.handleCloseModal} value="Close Modal" />
-                                        </div>
-
-                                    </Modal>
-
-                                </div>
+                                ยืนยัน <TermsModal />
                             </div>
                             <div>
-                                <input type="submit" value="Submit" />{" "}
+                                <input type="submit" value="ยืนยัน" />{" "}
                             </div>
                             <div>
-                                <input type="button" onClick={this.closeApp} value="Close" />
+                                <input type="button" onClick={this.closeApp} value="ปิด" />
                             </div>
                         </div>
                     </form>

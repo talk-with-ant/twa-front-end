@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
 import liff from "@line/liff";
 import BannerTop from './BannerTop';
-import Modal from 'react-modal'
+import TermsModal from './TermsModal'
 
 
 class RegisFormAllCourses extends React.Component {
@@ -86,7 +86,7 @@ class RegisFormAllCourses extends React.Component {
         event.preventDefault();
         liff.sendMessages([{
             type: 'text',
-            text: "Cancel Register"
+            text: "ยกเลิกการลงทะเบียน"
         }]).then(() => {
             liff.closeWindow();
         });
@@ -166,12 +166,12 @@ class RegisFormAllCourses extends React.Component {
 
         return (
             <div>
-                <BannerTop message="Register" />
+                <BannerTop message="ลงทะเบียน" />
                 <div className="container mw-25">
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
-                        <div className="form-group" id="COURSE_NAME">
-                            <h1>{this.state.courseName}</h1>
-                        </div>
+                        {/* <div className="form-group" id="COURSE_NAME"> */}
+                        <h2>{this.state.courseName}</h2>
+                        {/* </div> */}
                         <div className="form-group">
                             <div className="text-left">
                                 <label >ชื่อ</label>
@@ -181,7 +181,7 @@ class RegisFormAllCourses extends React.Component {
                                 type="text"
                                 className="form-control"
                                 id="name"
-                                placeholder="Enter name"
+                                placeholder=""
                                 required
                                 onChange={this.handlerChange}
                             />
@@ -204,7 +204,7 @@ class RegisFormAllCourses extends React.Component {
                                 type="email"
                                 className="form-control"
                                 id="email"
-                                placeholder="Enter email"
+                                placeholder=""
                                 required
                                 onChange={this.handlerChange}
                             />
@@ -219,15 +219,13 @@ class RegisFormAllCourses extends React.Component {
                                 type="tel"
                                 className="form-control"
                                 id="tel"
-                                placeholder="0123456789"
+                                placeholder=""
                                 pattern="[0-9]{10}"
                                 required
                                 onChange={this.handlerChange}
 
                             />
                         </div>
-
-
                         <div className="form-check mb-4 text-left">
                             <input
                                 type="checkbox"
@@ -236,55 +234,15 @@ class RegisFormAllCourses extends React.Component {
                                 name="check"
                                 required
                             />
-                            <div>
-                                <a class="text-decoration-none" onClick={this.handleOpenModal}>ยอมรับ ข้อตกลงและเงื่อนไข</a>
+                            ยืนยัน <TermsModal />
 
-                                <Modal
-                                    isOpen={this.state.showModal}
-                                    contentLabel="Minimal Modal Example"
-                                    style={{
-                                        overlay: {
-                                            backgroundColor: "white"
-                                        },
-                                        content: {
-                                            color: 'lightsteelblue'
-                                        }
-                                    }}
-                                    className="Modal container mw-25 border rounded"
-                                >
-                                    <div>
-                                        <h3 class="text-center">ข้อตกลงและเงื่อนไข</h3>
-                                        [Demo ข้อตกลงและเงื่อนไข]
-                                        <n />
-                                        Article 1. Definitions
-                                        <n />
-                                        The terms used herein shall have the meanings ascribed to them in each of the following items:
-                                        <n />
-                                        (1) “LINE” means the “LINE” messenger service and any related services operated by the Company.
-                                        <n />
-                                        (2) “Services” means the “Module Channel” provided by the Company.
-                                        <n />
-                                        (3) “Customer” means any company or person that uses the Services wishing to place its app on the LINE Marketplace.
-                                        <n />
-                                        (4) “Users” means the end users who use the Services.
-                                        <n />
-                                        (5) “Module Channel” means “LINE Developers” which includes information, etc. necessary for the Customers to introduce the Services and other websites separately informed by the Company, as well as the information system for introducing the Services.
-                                        <n />
-                                        (6) “Development Environment” means the development environment provided by the Company which is necessary for the Customers to introduce the Services.
-                                        <n />
-                                        (7) “Operator” means the person who operates and manages the Module Channel designated by a Customer.
-                                    </div>
-                                    <div>
-                                        <input type="button" onClick={this.handleCloseModal} value="Close Modal" />
-                                    </div>
-                                </Modal>
-                            </div>
+
                         </div>
                         <div>
-                            <input type="submit" value="Submit" />
+                            <input type="submit" value="ยืนยัน" />
                         </div>
                         <div>
-                            <input type="button" onClick={this.closeApp} value="Close" />
+                            <input type="button" onClick={this.closeApp} value="ปิด" />
                         </div>
                     </form>
                 </div>
