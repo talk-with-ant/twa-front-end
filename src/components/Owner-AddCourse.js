@@ -141,7 +141,7 @@ class OwnerAddCourse extends React.Component {
             .sendMessages([
                 {
                     type: "text",
-                    text: "สร้าง อบรม " + this.state.courseName + " สำเร็จ",
+                    text: "ลงทะเบียนจัดอบรม " + this.state.courseName + " สำเร็จ",
                 },
             ])
             .then(() => {
