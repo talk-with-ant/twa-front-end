@@ -126,6 +126,11 @@ class OwnerAddCourse extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        // new Intl.DateTimeFormat("en-GB", {
+        //     year: "numeric",
+        //     month: "numeric",
+        //     day: "2-digit"
+        // }).format(this.state.date)
         const data = new FormData(event.target);
         data.append("img", this.state.file);
         data.append("courseName", this.state.courseName);
@@ -209,8 +214,9 @@ class OwnerAddCourse extends React.Component {
                                     type="text"
                                     className="form-control"
                                     id="courseName"
-                                    placeholder=""
+                                    placeholder="English only"
                                     required
+                                    pattern="([A-z0-9À-ž\s]){2,}"
                                     onChange={this.handlerChange}
                                 />
                             </div>
