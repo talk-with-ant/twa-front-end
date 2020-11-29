@@ -332,7 +332,7 @@ class OwnerAddCourse extends React.Component {
                                         required
                                         onChange={this.handleImgChange}
                                     />
-                                    <img src={this.state.file} width="486" />
+                                    <img src={this.state.file} width="330" />
                                 </div>
 
 
