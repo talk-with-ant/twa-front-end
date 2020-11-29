@@ -6,7 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import "./custom.css";
 import "moment-timezone";
-import TermsModal from './TermsModal'
+import TermsModal from './TermsModal';
+import { Form } from "react-bootstrap";
 
 class OwnerAddCourse extends React.Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class OwnerAddCourse extends React.Component {
             maxPar: "",
             value: "",
             img: "",
+            file: null,
             curTime: new Date().toLocaleString(),
         };
         this.closeApp = this.closeApp.bind(this);
@@ -53,6 +55,7 @@ class OwnerAddCourse extends React.Component {
     handleImgChange(event) {
         this.setState({
             img: event.target.files[0],
+            file: URL.createObjectURL(event.target.files[0])
         });
     }
 
@@ -321,7 +324,7 @@ class OwnerAddCourse extends React.Component {
                                 <div >
                                     <label>รูปภาพปกงานอบรม</label>
                                 </div>
-                                <div >
+                                <div>
                                     <input
                                         name="img"
                                         type="file"
@@ -329,7 +332,9 @@ class OwnerAddCourse extends React.Component {
                                         required
                                         onChange={this.handleImgChange}
                                     />
+                                    <img src={this.state.file} width="486" />
                                 </div>
+
 
                             </div>
                             <div className="form-check mb-4 text-left">

@@ -18,7 +18,7 @@ function TermsModal() {
       </a>
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header
+                <Modal.Header closeButton
                     style={{
                         backgroundColor: "#FF783E", justifyContent: "center"
                     }}
