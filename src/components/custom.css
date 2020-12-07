@@ -60,3 +60,15 @@
     width: 100%;
     max-width: 516px;
   }
+
+  div.ex3 {
+  /* width: 110px; */
+  height: 516px; 
+  overflow: auto;
+}
+
+div.ex4 {
+  /* width: 110px;
+  height: 110px; */
+  overflow: visible;
+}

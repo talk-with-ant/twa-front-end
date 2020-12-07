@@ -292,7 +292,7 @@ class OwnerAddCourse extends React.Component {
                             </div>
                             <div className="form-group">
                                 <div className="text-left">
-                                    <label>ชื่อผู้อบรม</label>
+                                    <label>ชื่อวิทยากร</label>
                                 </div>
                                 <input
                                     name="trainerName"
