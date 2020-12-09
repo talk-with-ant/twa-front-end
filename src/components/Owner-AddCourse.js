@@ -94,7 +94,7 @@ class OwnerAddCourse extends React.Component {
             .sendMessages([
                 {
                     type: "text",
-                    text: "Cancel Add Course",
+                    text: "ยกเลิกสร้างคอส",
                 },
             ])
             .then(() => {
@@ -175,9 +175,6 @@ class OwnerAddCourse extends React.Component {
         this.props.history.push("/successAddCourse/" + this.state.courseName)
     }
 
-    handlerChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
 
     numChange = (e) => {
         //replace non-digits with blank
@@ -351,7 +348,7 @@ class OwnerAddCourse extends React.Component {
                                 <input type="submit" value="ยืนยัน" />{" "}
                             </div>
                             <div>
-                                <input type="button" onClick={this.closeApp} value="ปิด" />
+                                <input type="button" onClick value="ปิด" />
                             </div>
                         </div>
                     </form>

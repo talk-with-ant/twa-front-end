@@ -3,17 +3,13 @@ import { BrowserRouter, Switch, Route, withRouter, useParams } from "react-route
 
 import RegisFormAllCourses from "../components/RegisFormAllCourses";
 import SuccessPage from "../components/Success";
-// import Success from "../components/Success";
-// import Register from "../components";
-
-//import RegisterByCourse from "../components/RegisFormByCourse";
 import OwnerAddCourse from "../components/Owner-AddCourse";
 import SuccessAddCoursePage from "../components/SuccessAdd";
-import PageAdmin from "../components/PageAdmin"
+import AuthenPage from "../components/AuthenPage";
+import SuccessAuth from "../components/SuccessAuth"
+
 
 class Routing extends React.Component {
-
-
 
     render() {
         return (
@@ -23,7 +19,9 @@ class Routing extends React.Component {
                     <Route exact path="/success/:courseName" ><SuccessPage /></Route>
                     <Route exact path="/successAddCourse/:courseName" ><SuccessAddCoursePage /></Route>
                     <Route exact path="/addcourse"><OwnerAddCourse /></Route>
-                    <Route exact path="/admin"><PageAdmin /></Route>
+                    <Route exact path="/authen"><AuthenPage /></Route>
+                    <Route exact path="/successAuth"><SuccessAuth /></Route>
+
                 </Switch>
             </BrowserRouter>
         );
