@@ -7,8 +7,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
 import liff from "@line/liff";
-import BannerTop from './BannerTop';
-import TermsModal from './TermsModal'
+import BannerTop from './compo-banner';
+import TermsModal from './compo-terms-modal'
 
 
 class RegisFormAllCourses extends React.Component {
@@ -69,7 +69,6 @@ class RegisFormAllCourses extends React.Component {
             .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
             .then((res) => {
                 this.setState({ courses: res.data });
-
                 res.data.map((course) => {
                     if (id === course.id) {
                         this.setState({ courseName: course.data.courseName })

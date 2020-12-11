@@ -2,27 +2,31 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import liff from "@line/liff";
 import './custom.css';
-import BannerTop from './BannerTop';
+import BannerTop from './compo-banner';
 import { withRouter } from "react-router-dom"
 
-class SuccessAddCoursePage extends React.Component {
+class SuccessPage extends React.Component {
     render() {
 
         return (
             <div>
                 <BannerTop message="สำเร็จ" />
                 <div className="container mw-25">
-                    <h2>สร้างงานอบรมสำเร็จ</h2>
-                        คุณได้สร้างงานอบรม {this.props.match.params.courseName} เรียบร้อยแล้ว
+                    <h2>สมัครงานอบรมสำเร็จ</h2>
+                        ขอบคุณที่เข้าร่วมสมัครงานอบรม {this.props.match.params.courseName}
                     <div>
                         <input type="button" onClick={liff.closeWindow} value="ปิด" />
 
                     </div>
                 </div>
+
+
+
+
             </div>
 
         )
     }
 }
 
-export default withRouter(SuccessAddCoursePage)
+export default withRouter(SuccessPage)

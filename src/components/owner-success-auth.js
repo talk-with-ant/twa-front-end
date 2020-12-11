@@ -2,18 +2,19 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import liff from "@line/liff";
 import './custom.css';
-import BannerTop from './BannerTop';
+import BannerTop from './compo-banner';
 import { withRouter } from "react-router-dom"
 
-class SuccessPage extends React.Component {
+class SuccessAuth extends React.Component {
     render() {
 
         return (
             <div>
                 <BannerTop message="สำเร็จ" />
                 <div className="container mw-25">
-                    <h2>สมัครงานอบรมสำเร็จ</h2>
-                        ขอบคุณที่เข้าร่วมสมัครงานอบรม {this.props.match.params.courseName}
+                    <h2>ยืนยันตัวตนสำเร็จ</h2>
+                        ขอขอบคุณสำหรับการยืนยันตัวตน <br />
+                        ตอนนี้คุณสามารถใช้งานคำสั่งบอทได้แล้ว
                     <div>
                         <input type="button" onClick={liff.closeWindow} value="ปิด" />
 
@@ -29,4 +30,4 @@ class SuccessPage extends React.Component {
     }
 }
 
-export default withRouter(SuccessPage)
+export default withRouter(SuccessAuth)

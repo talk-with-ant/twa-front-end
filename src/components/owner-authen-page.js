@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, BrowserRouter } from "react-router-dom";
 import liff from "@line/liff";
-import BannerTop from "./BannerTop";
+import BannerTop from "./compo-banner";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import "./custom.css";
@@ -38,7 +38,7 @@ class AuthenPage extends React.Component {
 
     componentDidMount() {
         liff
-            .init({ liffId: "1655337851-5yY7mR2P" })
+            .init({ liffId: "1654378227-bePl7PNo" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();

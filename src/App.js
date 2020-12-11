@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLiff } from 'react-liff';
 import Routing from './routes/index';
-import RegisFormAllCourses from './components/RegisFormAllCourses';
+import RegisFormAllCourses from './components/user-regis-page';
 import './App.css';
 import {
   withRouter,
@@ -10,7 +10,7 @@ import {
   Route,
   Link, BrowserRouter
 } from "react-router-dom";
-import BannerTop from './components/BannerTop';
+import BannerTop from './components/compo-banner';
 
 const App = () => {
   const [displayName, setDisplayName] = useState('');

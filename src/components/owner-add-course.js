@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { withRouter, BrowserRouter } from "react-router-dom";
 import liff from "@line/liff";
-import BannerTop from "./BannerTop";
+import BannerTop from "./compo-banner";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import "./custom.css";
 import "moment-timezone";
-import TermsModal from './TermsModal';
+import TermsModal from './compo-terms-modal';
 import { Form } from "react-bootstrap";
 
 class OwnerAddCourse extends React.Component {
@@ -61,7 +61,7 @@ class OwnerAddCourse extends React.Component {
 
     componentDidMount() {
         liff
-            .init({ liffId: "1654987039-3lvl9O4p" })
+            .init({ liffId: "1654378227-YyWNaWKe" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();
