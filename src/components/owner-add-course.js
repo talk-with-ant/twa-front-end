@@ -88,6 +88,18 @@ class OwnerAddCourse extends React.Component {
             });
     }
 
+    sendMessageFunction(event) {
+        event.preventDefault();
+        liff
+            .sendMessages([
+                {
+                    type: "text",
+                    text: "ยกเลิกสร้างคอส",
+                },
+            ])
+            ;
+    }
+
     closeApp(event) {
         event.preventDefault();
         liff
@@ -145,13 +157,14 @@ class OwnerAddCourse extends React.Component {
         data.append("trainerName", this.state.trainerName);
         data.append("maxPar", this.state.maxPar);
         console.log(this.state);
-        liff
-            .sendMessages([
-                {
-                    type: "text",
-                    text: "ลงทะเบียนจัดอบรม " + this.state.courseName + " สำเร็จ",
-                },
-            ])
+
+
+        liff.sendMessages([
+            {
+                type: "text",
+                text: "ลงทะเบียนจัดอบรม " + this.state.courseName + " สำเร็จ"
+            },
+        ])
             .then(() => {
                 console.log("message sent");
             })
@@ -214,9 +227,8 @@ class OwnerAddCourse extends React.Component {
                                     type="text"
                                     className="form-control"
                                     id="courseName"
-                                    placeholder="English only"
                                     required
-                                    pattern="([A-z0-9À-ž\s]){2,}"
+                                    // pattern="([A-z0-9À-ž\s]){2,}"
                                     onChange={this.handlerChange}
                                 />
                             </div>
@@ -345,15 +357,15 @@ class OwnerAddCourse extends React.Component {
                                 ยืนยัน <TermsModal />
                             </div>
                             <div>
-                                <input type="submit" value="ยืนยัน" />{" "}
+                                <input type="submit" value="ยืนยัน" />
                             </div>
                             <div>
-                                <input type="button" onClick value="ปิด" />
+                                <input type="button" onClick={liff.closeApp} value="ปิด" />
                             </div>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div >
         );
     }
 }
