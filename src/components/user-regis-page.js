@@ -60,6 +60,7 @@ class RegisFormAllCourses extends React.Component {
                 const idToken = liff.getIDToken();
                 console.log(idToken)
                 // print raw idToken object
+
             })
             .catch((err) => {
                 // Error happens during initialization

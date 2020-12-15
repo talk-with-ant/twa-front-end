@@ -49,6 +49,20 @@ class AuthenPage extends React.Component {
                 // const idToken = liff.getIDToken();
                 // console.log(idToken);
                 // print raw idToken object
+                let userId;
+                await liff.getProfile().then((dataInfo) => {
+                    userId = dataInfo.userId;
+                })
+                await axios.get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/owner")
+                    .then(res => {
+                        console.log(res.data);
+                        res.data.map((owner) => {
+                            if (owner.ownerId === userId && owner.verify === true) {
+                                this.props.history.push("/successAuth/")
+                            }
+                        })
+                    })
+
             })
             .catch((err) => {
                 // Error happens during initialization
@@ -56,20 +70,9 @@ class AuthenPage extends React.Component {
                 // liff.closeWindow();
             });
         // const profile = liff.getProfile();
-        let userId;
-        liff.getProfile().then((dataInfo) => {
-            userId = dataInfo.userId;
-        })
 
-        axios.get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/owner")
-            .then(res => {
-                console.log(res.data);
-                res.data.map((owner) => {
-                    if (owner.ownerId === userId && owner.verify === true) {
-                        this.props.history.push("/successAuth/")
-                    }
-                })
-            })
+
+
 
 
     }
@@ -94,19 +97,19 @@ class AuthenPage extends React.Component {
         data.append("ownerId", this.state.ownerId);
         data.append("verifyId", this.state.verifyId);
         console.log(this.state);
-        // liff
-        //     .sendMessages([
-        //         {
-        //             type: "text",
-        //             text: "ยืนยันตัวตนสำเร็จ",
-        //         },
-        //     ])
-        //     .then(() => {
-        //         console.log("message sent");
-        //     })
-        //     .catch((err) => {
-        //         console.log("error", err);
-        //     });
+        liff
+            .sendMessages([
+                {
+                    type: "text",
+                    text: "ยืนยันตัวตนสำเร็จ",
+                },
+            ])
+            .then(() => {
+                console.log("message sent");
+            })
+            .catch((err) => {
+                console.log("error", err);
+            });
 
         axios
             .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/owner/verify",
