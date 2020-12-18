@@ -162,7 +162,7 @@ class OwnerAddCourse extends React.Component {
         liff.sendMessages([
             {
                 type: "text",
-                text: "ลงทะเบียนจัดอบรม " + this.state.courseName + " สำเร็จ"
+                text: "ลงทะเบียนจัดอบรมเสร็จสิ้นด้วยชื่อ " + this.state.courseName
             },
         ])
             .then(() => {
