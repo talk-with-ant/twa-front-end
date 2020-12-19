@@ -67,7 +67,7 @@ class RegisFormAllCourses extends React.Component {
                 console.log(err.code, err.message);
             });
         axios
-            .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
+            .get("https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/courses")
             .then((res) => {
                 this.setState({ courses: res.data });
                 res.data.map((course) => {
@@ -139,7 +139,7 @@ class RegisFormAllCourses extends React.Component {
             });
 
         axios
-            .post(`https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses/${this.state.courseId}/users`, {
+            .post(`https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/courses/${this.state.courseId}/users`, {
                 userId: this.state.userId,
                 name: this.state.name,
                 tel: this.state.tel,

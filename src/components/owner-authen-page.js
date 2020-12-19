@@ -53,7 +53,7 @@ class AuthenPage extends React.Component {
                 await liff.getProfile().then((dataInfo) => {
                     userId = dataInfo.userId;
                 })
-                await axios.get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/owner")
+                await axios.get("https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/owner")
                     .then(res => {
                         console.log(res.data);
                         res.data.map((owner) => {
@@ -97,27 +97,28 @@ class AuthenPage extends React.Component {
         data.append("ownerId", this.state.ownerId);
         data.append("verifyId", this.state.verifyId);
         console.log(this.state);
-        liff
-            .sendMessages([
-                {
-                    type: "text",
-                    text: "ยืนยันตัวตนสำเร็จ",
-                },
-            ])
-            .then(() => {
-                console.log("message sent");
-            })
-            .catch((err) => {
-                console.log("error", err);
-            });
+
 
         axios
-            .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/owner/verify",
+            .post("https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/owner/verify",
                 data,
             )
             .then((response) => {
                 console.log("response: ", response.data);
                 if (response.data.status == true) {
+                    liff
+                        .sendMessages([
+                            {
+                                type: "text",
+                                text: "ยืนยันตัวตนสำเร็จ",
+                            },
+                        ])
+                        .then(() => {
+                            console.log("message sent");
+                        })
+                        .catch((err) => {
+                            console.log("error", err);
+                        });
                     this.props.history.push("/successAuth/")
                 } else {
                     alert("รหัสยืนยันตัวตนผิดพลาด");

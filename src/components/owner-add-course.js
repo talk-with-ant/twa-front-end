@@ -79,7 +79,7 @@ class OwnerAddCourse extends React.Component {
                 // liff.closeWindow();
             });
         axios
-            .get("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses")
+            .get("https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/courses")
             .then((res) => {
                 this.setState({ courses: res.data });
             })
@@ -173,7 +173,7 @@ class OwnerAddCourse extends React.Component {
             });
 
         axios
-            .post("https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/courses",
+            .post("https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/courses",
                 data,
             )
             .then((response) => {

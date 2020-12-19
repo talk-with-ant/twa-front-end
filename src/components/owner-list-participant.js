@@ -68,7 +68,7 @@ class ListParticipant extends React.Component {
         // })
 
         axios
-            .get(`https://us-central1-antv2-xdbgna.cloudfunctions.net/twaApi/owner/${id}/users`)
+            .get(`https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/owner/${id}/users`)
             .then((res) => {
                 this.setState({ users: res.data.users, courseName: res.data.courseName });
 
