@@ -322,7 +322,6 @@ class OwnerAddCourse extends React.Component {
                   placeholder=""
                   required
                   min="1"
-                  max="100"
                   onChange={this.handlerChange}
                 />
               </div>
