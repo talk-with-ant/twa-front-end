@@ -168,7 +168,12 @@ class ListParticipant extends React.Component {
 
     render() {
         const { users, selection } = this.state;
-
+        // const tableColor = "";
+        // if (users.map(user => user.checkAttend) == true) {
+        //     tableColor = "table-primary";
+        // } else {
+        //     tableColor = "table-warning"
+        // }
         return (
             <div>
                 <BannerTop message="รายชื่อผู้เข้าร่วมอบรม" />
@@ -196,7 +201,10 @@ class ListParticipant extends React.Component {
                             {this.switchContent(selection)}
 
                         </div> */}
-                        <a>Attendance x / {users.length}</a>
+                        <div className="text-left">
+                            <a >Attendance x / {users.length}</a>
+                        </div>
+
                         <div className="form-group">
                             <table class="table table-hover">
                                 <thead>
