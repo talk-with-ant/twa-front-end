@@ -95,75 +95,75 @@ class ListParticipant extends React.Component {
         });
     }
 
-    toggleContent = (event) => {
-        let activeItem = [...this.state.active]
-        let active = activeItem.map((val, index) => {
-            return (val = false);
-        });
-        active[event.target.value] = true;
-        this.setState({
-            selection: event.target.value,
-            active
-        })
-    }
+    // toggleContent = (event) => {
+    //     let activeItem = [...this.state.active]
+    //     let active = activeItem.map((val, index) => {
+    //         return (val = false);
+    //     });
+    //     active[event.target.value] = true;
+    //     this.setState({
+    //         selection: event.target.value,
+    //         active
+    //     })
+    // }
 
-    switchContent = (value) => {
-        const { users, selection } = this.state;
-        const tableColor = "";
-        // if (users.user.checkAttend === true) {
-        //     tableColor = "table-primary";
-        // } else {
-        //     tableColor = "table-warning"
-        // }
-        switch (value) {
-            case 'participant':
-                return <div className="form-group">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Payment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user) =>
-                                <tr className={tableColor}>
-                                    <th scope="row">{users.indexOf(user) + 1}</th>
-                                    <td>{user.name}</td>
-                                    <td>{String(user.status)}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                    <input type="button" onClick={liff.closeWindow} value="ปิด" />
-                </div>;
-            case 'attendance':
-                return <div className="form-group">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr >
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Attendance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user) =>
-                                <tr className={tableColor}>
-                                    <th scope="row">{users.indexOf(user) + 1}</th>
-                                    <td>{user.name}</td>
-                                    <td>{String(user.checkAttend)}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                    <input type="button" onClick={liff.closeWindow} value="ปิด" />
-                </div>;
-            default:
-                return null;
-        }
-    }
+    // switchContent = (value) => {
+    //     const { users, selection } = this.state;
+    //     const tableColor = "";
+    //     // if (users.user.checkAttend === true) {
+    //     //     tableColor = "table-primary";
+    //     // } else {
+    //     //     tableColor = "table-warning"
+    //     // }
+    //     switch (value) {
+    //         case 'participant':
+    //             return <div className="form-group">
+    //                 <table class="table table-hover">
+    //                     <thead>
+    //                         <tr>
+    //                             <th scope="col">#</th>
+    //                             <th scope="col">Name</th>
+    //                             <th scope="col">Payment</th>
+    //                         </tr>
+    //                     </thead>
+    //                     <tbody>
+    //                         {users.map((user) =>
+    //                             <tr className={tableColor}>
+    //                                 <th scope="row">{users.indexOf(user) + 1}</th>
+    //                                 <td>{user.name}</td>
+    //                                 <td>{String(user.status)}</td>
+    //                             </tr>
+    //                         )}
+    //                     </tbody>
+    //                 </table>
+    //                 <input type="button" onClick={liff.closeWindow} value="ปิด" />
+    //             </div>;
+    //         case 'attendance':
+    //             return <div className="form-group">
+    //                 <table class="table table-hover">
+    //                     <thead>
+    //                         <tr >
+    //                             <th scope="col">#</th>
+    //                             <th scope="col">Name</th>
+    //                             <th scope="col">Attendance</th>
+    //                         </tr>
+    //                     </thead>
+    //                     <tbody>
+    //                         {users.map((user) =>
+    //                             <tr className={tableColor}>
+    //                                 <th scope="row">{users.indexOf(user) + 1}</th>
+    //                                 <td>{user.name}</td>
+    //                                 <td>{String(user.checkAttend)}</td>
+    //                             </tr>
+    //                         )}
+    //                     </tbody>
+    //                 </table>
+    //                 <input type="button" onClick={liff.closeWindow} value="ปิด" />
+    //             </div>;
+    //         default:
+    //             return null;
+    //     }
+    // }
 
 
     render() {
@@ -175,7 +175,8 @@ class ListParticipant extends React.Component {
                 <div className="container mw-25">
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                         <h2>{this.state.courseName}</h2>
-                        <div>
+
+                        {/* <div>
                             <input
                                 className={this.state.active['participant'] ? 'active' : null}
                                 type="button" value="participant"
@@ -194,7 +195,32 @@ class ListParticipant extends React.Component {
                             />
                             {this.switchContent(selection)}
 
+                        </div> */}
+                        <a>Attendance x / {users.length}</a>
+                        <div className="form-group">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Payment</th>
+                                        <th scope="col">Attendance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {users.map((user) =>
+                                        <tr>
+                                            <th scope="row">{users.indexOf(user) + 1}</th>
+                                            <td>{user.name}</td>
+                                            <td>{String(user.status)}</td>
+                                            <td>{String(user.checkAttend)}</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                            <input type="button" onClick={liff.closeWindow} value="ปิด" />
                         </div>
+
                     </form>
 
                 </div>
