@@ -21,6 +21,7 @@ class ListParticipant extends React.Component {
             users: [],
             name: '',
             status: '',
+            checkAttend: '',
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
@@ -105,7 +106,8 @@ class ListParticipant extends React.Component {
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col">Payment</th>
+                                        <th scope="col">Attendance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -114,6 +116,7 @@ class ListParticipant extends React.Component {
                                             <th scope="row">{users.indexOf(user) + 1}</th>
                                             <td>{user.name}</td>
                                             <td>{String(user.status)}</td>
+                                            <td>{String(user.checkAttend)}</td>
                                         </tr>
                                     )}
                                 </tbody>
