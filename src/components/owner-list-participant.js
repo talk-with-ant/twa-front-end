@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
 import liff from "@line/liff";
 import BannerTop from './compo-banner';
+import { data } from 'jquery';
 
 class ListParticipant extends React.Component {
     constructor(props) {
@@ -22,6 +23,10 @@ class ListParticipant extends React.Component {
             name: '',
             status: '',
             checkAttend: '',
+            selection: 'participant',
+            active: [],
+
+
         };
         this.closeApp = this.closeApp.bind(this);
         this.getProfile = this.getProfile.bind(this);
@@ -90,9 +95,79 @@ class ListParticipant extends React.Component {
         });
     }
 
+    toggleContent = (event) => {
+        let activeItem = [...this.state.active]
+        let active = activeItem.map((val, index) => {
+            return (val = false);
+        });
+        active[event.target.value] = true;
+        this.setState({
+            selection: event.target.value,
+            active
+        })
+    }
+
+    switchContent = (value) => {
+        const { users, selection } = this.state;
+        const tableColor = "";
+        // if (users.user.checkAttend === true) {
+        //     tableColor = "table-primary";
+        // } else {
+        //     tableColor = "table-warning"
+        // }
+        switch (value) {
+            case 'participant':
+                return <div className="form-group">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map((user) =>
+                                <tr className={tableColor}>
+                                    <th scope="row">{users.indexOf(user) + 1}</th>
+                                    <td>{user.name}</td>
+                                    <td>{String(user.status)}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    <input type="button" onClick={liff.closeWindow} value="ปิด" />
+                </div>;
+            case 'attendance':
+                return <div className="form-group">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr >
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map((user) =>
+                                <tr className={tableColor}>
+                                    <th scope="row">{users.indexOf(user) + 1}</th>
+                                    <td>{user.name}</td>
+                                    <td>{String(user.checkAttend)}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    <input type="button" onClick={liff.closeWindow} value="ปิด" />
+                </div>;
+            default:
+                return null;
+        }
+    }
+
 
     render() {
-        const { users } = this.state;
+        const { users, selection } = this.state;
 
         return (
             <div>
@@ -100,37 +175,31 @@ class ListParticipant extends React.Component {
                 <div className="container mw-25">
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                         <h2>{this.state.courseName}</h2>
-                        <div className="form-group">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Payment</th>
-                                        <th scope="col">Attendance</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {users.map((user) =>
-                                        <tr>
-                                            <th scope="row">{users.indexOf(user) + 1}</th>
-                                            <td>{user.name}</td>
-                                            <td>{String(user.status)}</td>
-                                            <td>{String(user.checkAttend)}</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                            <div>
-                                <input type="button" onClick={liff.closeWindow} value="ปิด" />
-                            </div>
+                        <div>
+                            <input
+                                className={this.state.active['participant'] ? 'active' : null}
+                                type="button" value="participant"
+                                onClick={(event) => this.toggleContent(event)}
+                                style={{
+                                    width: "50%"
+
+                                }}
+                            />
+                            <input type="button"
+                                value="attendance"
+                                onClick={(e) => this.toggleContent(e)}
+                                style={{
+                                    width: "50%"
+                                }}
+                            />
+                            {this.switchContent(selection)}
+
                         </div>
                     </form>
 
                 </div>
 
             </div>
-            // <div>{this.state.courseName}hi</div>
 
         );
     }
