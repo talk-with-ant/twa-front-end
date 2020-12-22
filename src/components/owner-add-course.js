@@ -348,7 +348,7 @@ class OwnerAddCourse extends React.Component {
                 <input type="submit" value="ยืนยัน" />
               </div>
               <div>
-                <input type="button" onClick={liff.closeApp} value="ปิด" />
+                <input type="button" onClick={liff.closeWindow} value="ปิด" />
               </div>
             </div>
           </form>
