@@ -23,7 +23,7 @@ class ListParticipant extends React.Component {
             name: '',
             status: '',
             checkAttend: '',
-            selection: 'participant',
+            selection: 'รายชื่อ',
             active: [],
 
 
@@ -76,7 +76,7 @@ class ListParticipant extends React.Component {
         axios
             .get(`https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/owner/${id}/users`)
             .then((res) => {
-                this.setState({ users: res.data.users, courseName: res.data.courseName });
+                this.setState({ users: res.data.users, courseName: res.data.courseName, checkAttend: res.data.checkAttend });
 
             })
             .catch((error) => {
@@ -95,75 +95,177 @@ class ListParticipant extends React.Component {
         });
     }
 
-    // toggleContent = (event) => {
-    //     let activeItem = [...this.state.active]
-    //     let active = activeItem.map((val, index) => {
-    //         return (val = false);
-    //     });
-    //     active[event.target.value] = true;
-    //     this.setState({
-    //         selection: event.target.value,
-    //         active
-    //     })
-    // }
+    toggleContent = (event) => {
+        let activeItem = [...this.state.active]
+        let active = activeItem.map((val, index) => {
+            return (val = false);
+        });
+        active[event.target.value] = true;
+        this.setState({
+            selection: event.target.value,
+            active
+        })
+    }
 
-    // switchContent = (value) => {
-    //     const { users, selection } = this.state;
-    //     const tableColor = "";
-    //     // if (users.user.checkAttend === true) {
-    //     //     tableColor = "table-primary";
-    //     // } else {
-    //     //     tableColor = "table-warning"
-    //     // }
-    //     switch (value) {
-    //         case 'participant':
-    //             return <div className="form-group">
-    //                 <table class="table table-hover">
-    //                     <thead>
-    //                         <tr>
-    //                             <th scope="col">#</th>
-    //                             <th scope="col">Name</th>
-    //                             <th scope="col">Payment</th>
-    //                         </tr>
-    //                     </thead>
-    //                     <tbody>
-    //                         {users.map((user) =>
-    //                             <tr className={tableColor}>
-    //                                 <th scope="row">{users.indexOf(user) + 1}</th>
-    //                                 <td>{user.name}</td>
-    //                                 <td>{String(user.status)}</td>
-    //                             </tr>
-    //                         )}
-    //                     </tbody>
-    //                 </table>
-    //                 <input type="button" onClick={liff.closeWindow} value="ปิด" />
-    //             </div>;
-    //         case 'attendance':
-    //             return <div className="form-group">
-    //                 <table class="table table-hover">
-    //                     <thead>
-    //                         <tr >
-    //                             <th scope="col">#</th>
-    //                             <th scope="col">Name</th>
-    //                             <th scope="col">Attendance</th>
-    //                         </tr>
-    //                     </thead>
-    //                     <tbody>
-    //                         {users.map((user) =>
-    //                             <tr className={tableColor}>
-    //                                 <th scope="row">{users.indexOf(user) + 1}</th>
-    //                                 <td>{user.name}</td>
-    //                                 <td>{String(user.checkAttend)}</td>
-    //                             </tr>
-    //                         )}
-    //                     </tbody>
-    //                 </table>
-    //                 <input type="button" onClick={liff.closeWindow} value="ปิด" />
-    //             </div>;
-    //         default:
-    //             return null;
-    //     }
-    // }
+    switchContent = (value) => {
+        const { users, selection } = this.state;
+        let count = 0;
+        let status = "";
+        let checkStatus = "";
+        let countCheckStatus = 0;
+        users.map((user) => {
+            if (user.status === "paid") {
+                status = "จ่ายแล้ว"
+                count++;
+            } else if (user.state === "pending") {
+                status = "ยังไม่จ่าย"
+            }
+
+            if (user.checkAttend === true) {
+                checkStatus = "เช็คชื่อแล้ว"
+                countCheckStatus++;
+            } else if (user.checkAttend === false) {
+                checkStatus = "ยังไม่เช็คชื่อ"
+            }
+        }
+        )
+
+
+
+
+        // const tableColor = "";
+        // if (users.user.checkAttend === true) {
+        //     tableColor = "table-primary";
+        // } else {
+        //     tableColor = "table-warning"
+        // }
+
+        switch (value) {
+            case 'รายชื่อ':
+                if (users.length === 0) {
+                    return <div className="form-group">
+                        <p
+                            style={{
+                                marginTop: "5px",
+                                width: "50%"
+                            }}
+                        >ยังไม่มีผู้เข้าร่วม</p>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">ชื่อ</th>
+                                    <th scope="col">สถานะจ่ายเงิน</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                        <input type="button" onClick={liff.closeWindow} value="ปิด" />
+                    </div>;
+                } else {
+                    return <div>
+
+                        <div className="form-group">
+                            <table className="table"
+                            >
+                                <thead>
+                                    <tr>
+                                        <td className="text-left border-0" scope="col"
+                                            style={{
+                                                padding: "0",
+                                                paddingLeft: "5px",
+                                                marginTop: "5px",
+                                                marginBottom: "1rem"
+                                            }}>ผู้เข้าร่วมทั้งหมด {users.length} คน</td>
+                                        <td className="text-right border-0" scope="col"
+                                            style={{
+                                                padding: "0",
+                                                paddingRight: "5px",
+                                                marginTop: "5px",
+                                                marginBottom: "1rem"
+                                            }}>ผู้ที่ชำระเงิน {count}/{users.length} คน</td>
+                                    </tr>
+                                </thead>
+                            </table>
+
+
+                            <table className="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">ชื่อ</th>
+                                        <th scope="col">สถานะจ่ายเงิน</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {users.map((user) =>
+                                        <tr>
+                                            <th scope="row">{users.indexOf(user) + 1}</th>
+                                            <td>{user.name}</td>
+                                            <td>{user.status ? "จ่ายแล้ว" : "ยังไม่จ่าย"}</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                            <input type="button" onClick={liff.closeWindow} value="ปิด" />
+                        </div>
+                    </div>;
+                }
+
+            case 'เช็คชื่อ':
+
+                if (this.state.checkAttend === false) {
+                    return <div className="form-group">
+                        <p
+                            style={{
+                                marginTop: "5px"
+                            }}
+                        >ยังไม่ได้ทำการเช็คชื่อ</p>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr >
+                                    <th scope="col">#</th>
+                                    <th scope="col">ชื่อ</th>
+                                    <th scope="col">สถานะเช็คชื่อ</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <input type="button" onClick={liff.closeWindow} value="ปิด" />
+                    </div>;
+
+                } else {
+                    return <div className="form-group">
+                        <p
+                            style={{
+                                marginTop: "5px"
+                            }}
+                        >จำนวนคนเช็คชื่อ {countCheckStatus}/{users.length} คน</p>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr >
+                                    <th scope="col">#</th>
+                                    <th scope="col">ชื่อ</th>
+                                    <th scope="col">สถานะเช็คชื่อ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {users.map((user) =>
+                                    <tr>
+                                        <th scope="row">{users.indexOf(user) + 1}</th>
+                                        <td>{user.name}</td>
+                                        <td>{user.checkAttend === true ? "เช็คชื่อแล้ว" : "ยังไม่เช็ค"}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                        <input type="button" onClick={liff.closeWindow} value="ปิด" />
+                    </div>;
+                }
+            default:
+                return null;
+        }
+    }
 
 
     render() {
@@ -181,10 +283,10 @@ class ListParticipant extends React.Component {
                     <form onSubmit={this.handleSubmit} onInput={this.getProfile}>
                         <h2>{this.state.courseName}</h2>
 
-                        {/* <div>
+                        <div>
                             <input
-                                className={this.state.active['participant'] ? 'active' : null}
-                                type="button" value="participant"
+                                className={this.state.active['รายชื่อ'] ? 'active' : null}
+                                type="button" value="รายชื่อ"
                                 onClick={(event) => this.toggleContent(event)}
                                 style={{
                                     width: "50%"
@@ -192,7 +294,7 @@ class ListParticipant extends React.Component {
                                 }}
                             />
                             <input type="button"
-                                value="attendance"
+                                value="เช็คชื่อ"
                                 onClick={(e) => this.toggleContent(e)}
                                 style={{
                                     width: "50%"
@@ -200,8 +302,9 @@ class ListParticipant extends React.Component {
                             />
                             {this.switchContent(selection)}
 
-                        </div> */}
-                        <div className="text-left">
+                        </div>
+
+                        {/* <div className="text-left">
                             <a >Attendance x / {users.length}</a>
                         </div>
 
@@ -227,7 +330,7 @@ class ListParticipant extends React.Component {
                                 </tbody>
                             </table>
                             <input type="button" onClick={liff.closeWindow} value="ปิด" />
-                        </div>
+                        </div> */}
 
                     </form>
 
