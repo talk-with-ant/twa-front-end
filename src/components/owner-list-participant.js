@@ -115,17 +115,11 @@ class ListParticipant extends React.Component {
         let countCheckStatus = 0;
         users.map((user) => {
             if (user.status === "paid") {
-                status = "จ่ายแล้ว"
                 count++;
-            } else if (user.state === "pending") {
-                status = "ยังไม่จ่าย"
             }
 
             if (user.checkAttend === true) {
-                checkStatus = "เช็คชื่อแล้ว"
                 countCheckStatus++;
-            } else if (user.checkAttend === false) {
-                checkStatus = "ยังไม่เช็คชื่อ"
             }
         }
         )
@@ -147,7 +141,6 @@ class ListParticipant extends React.Component {
                         <p
                             style={{
                                 marginTop: "5px",
-                                width: "50%"
                             }}
                         >ยังไม่มีผู้เข้าร่วม</p>
                         <table class="table table-hover">
