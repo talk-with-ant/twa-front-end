@@ -1,8 +1,5 @@
 import React, { Component, useState, useEffect, setIsOpen, isOpen } from 'react';
-import {
-    withRouter,
-    BrowserRouter as Router,
-} from "react-router-dom";
+import { withRouter, BrowserRouter as Router } from "react-router-dom";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
@@ -273,39 +270,8 @@ class ListParticipant extends React.Component {
                             {this.switchContent(selection)}
 
                         </div>
-
-                        {/* <div className="text-left">
-                            <a >Attendance x / {users.length}</a>
-                        </div>
-
-                        <div className="form-group">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Payment</th>
-                                        <th scope="col">Attendance</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {users.map((user) =>
-                                        <tr>
-                                            <th scope="row">{users.indexOf(user) + 1}</th>
-                                            <td>{user.name}</td>
-                                            <td>{String(user.status)}</td>
-                                            <td>{String(user.checkAttend)}</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                            <input type="button" onClick={liff.closeWindow} value="ปิด" />
-                        </div> */}
-
                     </form>
-
                 </div>
-
             </div>
 
         );

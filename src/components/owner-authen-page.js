@@ -43,12 +43,6 @@ class AuthenPage extends React.Component {
                 if (!liff.isLoggedIn()) {
                     liff.login();
                 }
-                // Start to use liff's api
-                // const lineProfile = liff.getProfile();
-                // console.log(lineProfile);
-                // const idToken = liff.getIDToken();
-                // console.log(idToken);
-                // print raw idToken object
                 let userId;
                 await liff.getProfile().then((dataInfo) => {
                     userId = dataInfo.userId;
@@ -69,7 +63,6 @@ class AuthenPage extends React.Component {
                 console.log(err.code, err.message);
                 // liff.closeWindow();
             });
-        // const profile = liff.getProfile();
 
 
 
@@ -87,11 +80,6 @@ class AuthenPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // new Intl.DateTimeFormat("en-GB", {
-        //     year: "numeric",
-        //     month: "numeric",
-        //     day: "2-digit"
-        // }).format(this.state.date)
         const data = new FormData(event.target);
         data.append("ownerName", this.state.ownerName);
         data.append("ownerId", this.state.ownerId);

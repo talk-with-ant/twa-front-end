@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, withRouter, useParams } from "react-router-dom";
-
 import RegisFormAllCourses from "../components/user-regis-page";
 import SuccessPage from "../components/user-success-regis";
 import OwnerAddCourse from "../components/owner-add-course";

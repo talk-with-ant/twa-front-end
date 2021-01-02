@@ -1,8 +1,5 @@
 import React, { Component, useState, useEffect, setIsOpen, isOpen } from 'react';
-import {
-    withRouter,
-    BrowserRouter as Router,
-} from "react-router-dom";
+import { withRouter, BrowserRouter as Router } from "react-router-dom";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
@@ -101,20 +98,6 @@ class RegisFormAllCourses extends React.Component {
                 // statusMessage: dataInfo.statusMessage
             });
         });
-
-        // const languageDevice = liff.getLanguage();
-        // const versionSDK = liff.getVersion();
-        // const client = liff.isInClient();
-        // const isLogin = liff.isLoggedIn();
-        // const os = liff.getOS();
-
-        // this.setState({
-        //     languageDevice: languageDevice,
-        //     versionSDK: versionSDK,
-        //     client: (client === true) ? 'YES' : 'NO',
-        //     isLogin: (isLogin === true) ? 'Login' : 'Not Login',
-        //     os: os
-        // });
     }
 
 

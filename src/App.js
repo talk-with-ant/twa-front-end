@@ -44,10 +44,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {/* <header className="App-header">{showDisplayName()}</header> */}
       <Routing />
-      {/* <RegisFormAllCourses /> */}
-      {/* <Success/> */}
     </div>
   );
 }

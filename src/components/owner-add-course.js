@@ -122,29 +122,10 @@ class OwnerAddCourse extends React.Component {
         // statusMessage: dataInfo.statusMessage
       });
     });
-
-    // const languageDevice = liff.getLanguage();
-    // const versionSDK = liff.getVersion();
-    // const client = liff.isInClient();
-    // const isLogin = liff.isLoggedIn();
-    // const os = liff.getOS();
-
-    // this.setState({
-    //     languageDevice: languageDevice,
-    //     versionSDK: versionSDK,
-    //     client: (client === true) ? 'YES' : 'NO',
-    //     isLogin: (isLogin === true) ? 'Login' : 'Not Login',
-    //     os: os
-    // });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    // new Intl.DateTimeFormat("en-GB", {
-    //     year: "numeric",
-    //     month: "numeric",
-    //     day: "2-digit"
-    // }).format(this.state.date)
     const data = new FormData();
     data.append("img", this.state.img);
     data.append("courseName", this.state.courseName);
