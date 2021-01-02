@@ -55,23 +55,13 @@ class ListParticipant extends React.Component {
                 if (!liff.isLoggedIn()) {
                     liff.login();
                 }
-                // Start to use liff's api
-                // const lineProfile = liff.getProfile();
-                // console.log(lineProfile);
-                // const idToken = liff.getIDToken();
-                // console.log(idToken);
-                // print raw idToken object
+
             })
             .catch((err) => {
                 // Error happens during initialization
                 console.log(err.code, err.message);
                 // liff.closeWindow();
             });
-        // const profile = liff.getProfile();
-        // let userId;
-        // liff.getProfile().then((dataInfo) => {
-        //     userId = dataInfo.userId;
-        // })
 
         axios
             .get(`https://talk-with-ant-qv5fvdpzmq-de.a.run.app/api/owner/${id}/users`)
@@ -125,24 +115,15 @@ class ListParticipant extends React.Component {
         )
 
 
-
-
-        // const tableColor = "";
-        // if (users.user.checkAttend === true) {
-        //     tableColor = "table-primary";
-        // } else {
-        //     tableColor = "table-warning"
-        // }
-
         switch (value) {
             case 'รายชื่อ':
                 if (users.length === 0) {
                     return <div className="form-group">
-                        <p
+                        <label
                             style={{
                                 marginTop: "5px",
                             }}
-                        >ยังไม่มีผู้เข้าร่วม</p>
+                        >ยังไม่มีผู้เข้าร่วม</label>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -159,28 +140,21 @@ class ListParticipant extends React.Component {
                     return <div>
 
                         <div className="form-group">
-                            <table className="table"
+                            <label className="text-left"
+                                style={{
+                                    marginTop: "5px",
+                                    width: "50%"
+                                }}
                             >
-                                <thead>
-                                    <tr>
-                                        <td className="text-left border-0" scope="col"
-                                            style={{
-                                                padding: "0",
-                                                paddingLeft: "5px",
-                                                marginTop: "5px",
-                                                marginBottom: "1rem"
-                                            }}>ผู้เข้าร่วมทั้งหมด {users.length} คน</td>
-                                        <td className="text-right border-0" scope="col"
-                                            style={{
-                                                padding: "0",
-                                                paddingRight: "5px",
-                                                marginTop: "5px",
-                                                marginBottom: "1rem"
-                                            }}>ผู้ที่ชำระเงิน {count}/{users.length} คน</td>
-                                    </tr>
-                                </thead>
-                            </table>
-
+                                ผู้เข้าร่วมทั้งหมด {users.length} คน
+                                        </label>
+                            <label className="text-right"
+                                style={{
+                                    marginTop: "5px",
+                                    width: "50%"
+                                }}>
+                                ผู้ที่ชำระเงิน {count}/{users.length} คน
+                                        </label>
 
                             <table className="table table-hover">
                                 <thead>
@@ -209,11 +183,11 @@ class ListParticipant extends React.Component {
 
                 if (this.state.checkAttend === false) {
                     return <div className="form-group">
-                        <p
+                        <label
                             style={{
                                 marginTop: "5px"
                             }}
-                        >ยังไม่ได้ทำการเช็คชื่อ</p>
+                        >ยังไม่ได้ทำการเช็คชื่อ</label>
                         <table class="table table-hover">
                             <thead>
                                 <tr >
@@ -228,11 +202,11 @@ class ListParticipant extends React.Component {
 
                 } else {
                     return <div className="form-group">
-                        <p
+                        <label
                             style={{
                                 marginTop: "5px"
                             }}
-                        >จำนวนคนเช็คชื่อ {countCheckStatus}/{users.length} คน</p>
+                        >จำนวนคนเช็คชื่อ {countCheckStatus}/{users.length} คน</label>
                         <table class="table table-hover">
                             <thead>
                                 <tr >
@@ -282,15 +256,18 @@ class ListParticipant extends React.Component {
                                 type="button" value="รายชื่อ"
                                 onClick={(event) => this.toggleContent(event)}
                                 style={{
-                                    width: "50%"
+                                    width: "49%",
+                                    marginRight: "1%"
 
                                 }}
+                                autoFocus
                             />
                             <input type="button"
                                 value="เช็คชื่อ"
                                 onClick={(e) => this.toggleContent(e)}
                                 style={{
-                                    width: "50%"
+                                    width: "49%",
+                                    marginleft: "1%"
                                 }}
                             />
                             {this.switchContent(selection)}
