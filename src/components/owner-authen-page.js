@@ -38,7 +38,7 @@ class AuthenPage extends React.Component {
 
     componentDidMount() {
         liff
-            .init({ liffId: "1654378227-bePl7PNo" })
+            .init({ liffId: "1655424277-RJZ1wV81" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();

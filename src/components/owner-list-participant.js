@@ -47,7 +47,7 @@ class ListParticipant extends React.Component {
         // this.setState({ courseId: id });
         console.log(this.state.courseId)
         liff
-            .init({ liffId: "1654378227-RVWaLWb5" })
+            .init({ liffId: "1655424277-LlqGOZJG" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();

@@ -46,7 +46,7 @@ class RegisFormAllCourses extends React.Component {
         const id = params.get('courseId');
         this.setState({ courseId: id });
         console.log(this.state.courseId)
-        liff.init({ liffId: "1654378227-QwAzgAb0" })
+        liff.init({ liffId: "1655424277-pxLGOaAG" })
             .then(async () => {
                 if (!liff.isLoggedIn()) {
                     liff.login();
